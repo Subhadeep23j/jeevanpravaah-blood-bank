@@ -29,11 +29,18 @@ class RegisterController extends Controller
             'address' => 'required',
             'city' => 'required',
             'pin' => 'required|digits:6',
-            'password' => 'required|min:6|confirmed'
+            'password' => 'required|min:6|confirmed',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
         // Hash the password before creating user
         $validatedData['password'] = Hash::make($validatedData['password']);
+
+        // Handle profile image upload if present
+        if ($req->hasFile('profile_image')) {
+            $path = $req->file('profile_image')->store('profile-images', 'public');
+            $validatedData['profile_image_path'] = $path; // stored relative to storage/app/public
+        }
 
         $user = User::create($validatedData);
 

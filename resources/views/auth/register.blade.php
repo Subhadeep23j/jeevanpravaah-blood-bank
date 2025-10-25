@@ -41,7 +41,8 @@
                     @endif
 
                     <!-- Register Form -->
-                    <form action="{{ route('register.store') }}" method="POST" class="space-y-6">
+                    <form action="{{ route('register.store') }}" method="POST" class="space-y-6"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <!-- Personal Information Section -->
@@ -53,6 +54,22 @@
                                 Personal Information
                             </h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- Profile Photo -->
+                                <div class="md:col-span-2">
+                                    <label for="profile_image"
+                                        class="block text-sm font-semibold text-gray-700 mb-2">Profile Picture</label>
+                                    <div class="flex items-center gap-4">
+                                        <div class="w-16 h-16 rounded-full overflow-hidden bg-gray-100 border">
+                                            <img id="profilePreview" src="{{ asset('assets/profile.svg') }}" alt="Preview"
+                                                class="w-full h-full object-cover">
+                                        </div>
+                                        <div class="flex-1">
+                                            <input type="file" name="profile_image" id="profile_image" accept="image/*"
+                                                class="block w-full text-sm text-gray-700 file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100" />
+                                            <p class="mt-1 text-xs text-gray-500">PNG, JPG up to 2MB.</p>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Name -->
                                 <div>
                                     <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Full
@@ -122,8 +139,8 @@
                                 <div>
                                     <label for="pin" class="block text-sm font-semibold text-gray-700 mb-2">PIN
                                         Code</label>
-                                    <input type="text" name="pin" id="pin" value="{{ old('pin') }}" required
-                                        placeholder="400001"
+                                    <input type="text" name="pin" id="pin" value="{{ old('pin') }}"
+                                        required placeholder="400001"
                                         class="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
                                 </div>
                             </div>
@@ -192,6 +209,26 @@
                             Sign In Instead
                         </a>
                     </form>
+                    @push('scripts')
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const input = document.getElementById('profile_image');
+                                const preview = document.getElementById('profilePreview');
+                                if (input && preview) {
+                                    input.addEventListener('change', function() {
+                                        const file = this.files && this.files[0];
+                                        if (!file) return;
+                                        if (!file.type.startsWith('image/')) return;
+                                        const reader = new FileReader();
+                                        reader.onload = (e) => {
+                                            preview.src = e.target.result;
+                                        };
+                                        reader.readAsDataURL(file);
+                                    });
+                                }
+                            });
+                        </script>
+                    @endpush
                 </div>
             </div>
         </div>

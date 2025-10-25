@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Login - JeevanPravaah')
+@section('title', 'Admin Login - JeevanPravaah')
 
 @section('content')
     <section
@@ -54,7 +54,7 @@
                 @endif
 
                 <!-- Login Form -->
-                <form action="{{ route('login') }}" method="POST" class="space-y-5">
+                <form action="{{ route('admin.login.submit') }}" method="POST" class="space-y-5">
                     @csrf
 
                     <!-- Email Field -->
@@ -90,11 +90,6 @@
                         class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
                         Sign In
                     </button>
-                    {{-- admin-login  --}}
-                    <a href="{{route('admin.login')}}"
-                        class="block w-full text-center py-4 border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200">
-                        Admin Login
-                    </a>
                 </form>
 
                 <!-- Divider -->
@@ -108,10 +103,10 @@
                 </div>
 
                 <!-- Register Link -->
-                <a href="{{ url('/register') }}"
+                {{-- <a href="{{ url('/register') }}"
                     class="block w-full text-center py-4 border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200">
                     Create Account
-                </a>
+                </a> --}}
             </div>
         </div>
     </section>

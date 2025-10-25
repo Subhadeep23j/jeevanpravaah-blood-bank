@@ -10,6 +10,8 @@
 
     <!-- Alpine.js for dropdown functionality -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @stack('head')
     <style>
@@ -229,30 +231,60 @@
     @stack('scripts')
 
     <script>
-        // Page Loader Functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        // Robust Page Loader logic: handles initial load and browser back/forward (bfcache)
+        (function() {
             const loader = document.getElementById('pageLoader');
             const content = document.getElementById('pageContent');
-            document.body.classList.add('is-loading');
 
-            const minLoadTime = 700;
-            const startTime = Date.now();
+            function hideLoaderImmediate() {
+                if (content) content.classList.add('loaded');
+                if (loader) loader.classList.add('hidden');
+                document.body.classList.remove('is-loading');
+                try {
+                    window.dispatchEvent(new CustomEvent('jp:loader:hidden'));
+                } catch (_) {
+                    /* no-op */ }
+            }
 
-            window.addEventListener('load', function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+            function hideLoaderAfter(minDelay, startedAt) {
+                const elapsed = Date.now() - startedAt;
+                const remaining = Math.max(0, minDelay - elapsed);
+                setTimeout(hideLoaderImmediate, remaining);
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.classList.add('is-loading');
+                const minLoadTime = 700;
+                const startTime = Date.now();
+
+                window.addEventListener('load', function() {
+                    hideLoaderAfter(minLoadTime, startTime);
+                });
+
+                window.addEventListener('pageshow', function(e) {
+                    const navEntries = (performance && performance.getEntriesByType) ? performance
+                        .getEntriesByType('navigation') : [];
+                    const isBackFwd = navEntries && navEntries[0] && navEntries[0].type ===
+                        'back_forward';
+                    if (e.persisted || isBackFwd) {
+                        hideLoaderImmediate();
+                    }
+                });
 
                 setTimeout(function() {
-                    if (content) {
-                        content.classList.add('loaded');
-                    }
-                    if (loader) {
-                        loader.classList.add('hidden');
-                    }
-                    document.body.classList.remove('is-loading');
-                }, remainingTime);
+                    if (!loader || loader.classList.contains('hidden')) return;
+                    hideLoaderImmediate();
+                }, 2000);
             });
-        });
+
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') {
+                    if (loader && !loader.classList.contains('hidden')) {
+                        hideLoaderImmediate();
+                    }
+                }
+            });
+        })();
 
         // Mobile menu toggle
         document.addEventListener('DOMContentLoaded', function() {
@@ -277,6 +309,8 @@
             }
         });
     </script>
+
+    @include('components.sweetalerts')
 </body>
 
 </html>

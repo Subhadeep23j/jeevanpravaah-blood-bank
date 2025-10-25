@@ -250,7 +250,7 @@
             </div>
 
             <div class="glass-card rounded-3xl p-8">
-                <form id="donationForm" action="#" method="POST">
+                <form id="donationForm" action="{{ route('donors.store') }}" method="POST">
                     @csrf
 
                     <!-- Step 1: Personal Information -->
@@ -632,30 +632,7 @@
                 document.getElementById('selectedBloodType').value = bloodType;
             }
 
-            // Form submission
-            document.getElementById('donationForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                if (validateCurrentStep()) {
-                    // Show success message
-                    const successMessage = `
-                <div class="text-center py-12">
-                    <div class="floating-animation mb-6">
-                        <svg class="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">Registration Successful!</h3>
-                    <p class="text-gray-600 mb-6">Thank you for registering as a blood donor. You'll receive a confirmation email shortly.</p>
-                    <a href="/" class="px-6 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
-                        Return to Home
-                    </a>
-                </div>
-            `;
-
-                    document.querySelector('.glass-card').innerHTML = successMessage;
-                }
-            });
+            // Allow normal form submission; optional client-side validation only advances steps
 
             // Initialize
             showStep(1);

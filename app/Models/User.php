@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -20,12 +21,14 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'profile_image_path',
         'phone',
         'aadhar',
         'address',
         'city',
         'pin',
         'password',
+        'donations_count',
     ];
 
     /**
@@ -48,6 +51,24 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'donations_count' => 'integer',
         ];
+    }
+
+    public function donations()
+    {
+        return $this->hasMany(Donor::class);
+    }
+
+    /**
+     * Accessor: Computed URL for the user's profile image based on DB path
+     */
+    public function getProfileImageUrlAttribute(): string
+    {
+        $path = $this->profile_image_path;
+        if ($path && Storage::disk('public')->exists($path)) {
+            return asset('storage/' . $path);
+        }
+        return asset('assets/profile.svg');
     }
 }

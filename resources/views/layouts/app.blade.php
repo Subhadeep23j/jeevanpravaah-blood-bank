@@ -10,6 +10,8 @@
 
     <!-- Alpine.js for dropdown functionality -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @stack('head')
     <style>
@@ -627,34 +629,70 @@
     @stack('scripts')
 
     <script>
-        // Page Loader Functionality for your existing loader
-        document.addEventListener('DOMContentLoaded', function() {
+        // Robust Page Loader logic: handles initial load and browser back/forward (bfcache)
+        (function() {
             const loader = document.getElementById('pageLoader');
             const content = document.getElementById('pageContent');
-            document.body.classList.add('is-loading');
 
-            // Minimum load time to avoid flash
-            const minLoadTime = 700; // ms
-            const startTime = Date.now();
+            // Helper to hide the loader immediately
+            function hideLoaderImmediate() {
+                if (content) content.classList.add('loaded');
+                if (loader) loader.classList.add('hidden');
+                document.body.classList.remove('is-loading');
+                // Notify listeners that loader is fully hidden so UI elements (e.g., alerts) can show
+                try {
+                    window.dispatchEvent(new CustomEvent('jp:loader:hidden'));
+                } catch (_) {
+                    /* no-op */ }
+            }
 
-            // Wait for all resources to load
-            window.addEventListener('load', function() {
-                const elapsedTime = Date.now() - startTime;
-                const remainingTime = Math.max(0, minLoadTime - elapsedTime);
+            // Helper to hide the loader after ensuring a minimum display time
+            function hideLoaderAfter(minDelay, startedAt) {
+                const elapsed = Date.now() - startedAt;
+                const remaining = Math.max(0, minDelay - elapsed);
+                setTimeout(hideLoaderImmediate, remaining);
+            }
 
+            document.addEventListener('DOMContentLoaded', function() {
+                // Start in loading state to prevent content jump before styles/scripts
+                document.body.classList.add('is-loading');
+
+                const minLoadTime = 700; // ms
+                const startTime = Date.now();
+
+                // Standard load event
+                window.addEventListener('load', function() {
+                    hideLoaderAfter(minLoadTime, startTime);
+                });
+
+                // Handle bfcache restore (pageshow fires, load may not)
+                window.addEventListener('pageshow', function(e) {
+                    // If restored from bfcache or back/forward navigation, hide immediately
+                    const navEntries = (performance && performance.getEntriesByType) ? performance
+                        .getEntriesByType('navigation') : [];
+                    const isBackFwd = navEntries && navEntries[0] && navEntries[0].type ===
+                        'back_forward';
+                    if (e.persisted || isBackFwd) {
+                        hideLoaderImmediate();
+                    }
+                });
+
+                // Safety: if for any reason load/pageshow didn't fire, ensure we don't get stuck
                 setTimeout(function() {
-                    // Show content first to avoid brief opacity drop when hiding overlay
-                    if (content) {
-                        content.classList.add('loaded');
-                    }
-                    // Then hide loader
-                    if (loader) {
-                        loader.classList.add('hidden');
-                    }
-                    document.body.classList.remove('is-loading');
-                }, remainingTime);
+                    if (!loader || loader.classList.contains('hidden')) return;
+                    hideLoaderImmediate();
+                }, 2000);
             });
-        });
+
+            // Also ensure when tab becomes visible again, loader isn't shown
+            document.addEventListener('visibilitychange', function() {
+                if (document.visibilityState === 'visible') {
+                    if (loader && !loader.classList.contains('hidden')) {
+                        hideLoaderImmediate();
+                    }
+                }
+            });
+        })();
 
         // Show loader on internal navigation (links/forms) to avoid white flash before next page renders
         (function() {
@@ -683,6 +721,8 @@
 
             document.addEventListener('click', function(e) {
                 const a = e.target.closest('a');
+                // If this link requires confirmation, don't show loader yet
+                if (a && a.hasAttribute('data-confirm') && a.dataset.confirmed !== 'true') return;
                 if (shouldUseLoaderForLink(a)) {
                     // Show overlay before navigating
                     showLoaderOverlay();
@@ -692,6 +732,8 @@
             document.addEventListener('submit', function(e) {
                 const form = e.target;
                 if (!form || form.target === '_blank' || form.dataset.noLoader === 'true') return;
+                // If this form requires confirmation and hasn't been confirmed yet, don't show loader
+                if (form.hasAttribute('data-confirm') && form.dataset.confirmed !== 'true') return;
                 showLoaderOverlay();
             }, true);
         })();
@@ -787,6 +829,10 @@
 
         // Removed exit fade animation to avoid white flash; loader overlay handles transitions
     </script>
+
+    @include('components.sweetalerts')
+    {{-- Page-level scripts hook --}}
+    @stack('scripts')
 </body>
 
 </html>

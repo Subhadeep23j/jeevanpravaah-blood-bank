@@ -28,8 +28,8 @@
                         <!-- User Profile Image -->
                         <div
                             class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center overflow-hidden border-2 border-white/30">
-                            @if (Auth::user()->profile_image)
-                                <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
+                            @if (Auth::user()->profile_image_path)
+                                <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
                                     alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
                             @else
                                 <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
@@ -57,8 +57,8 @@
                             <!-- User Profile Image -->
                             <div
                                 class="w-10 h-10 rounded-full bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center overflow-hidden border-2 border-red-200">
-                                @if (Auth::user()->profile_image)
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
+                                @if (Auth::user()->profile_image_path)
+                                    <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
                                         alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
                                 @else
                                     <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
@@ -74,7 +74,7 @@
                         </div>
 
                         <!-- Menu Items -->
-                        <a href="#"
+                        <a href="{{ route('profile.show') }}"
                             class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -90,7 +90,7 @@
                             </svg>
                             Donation History
                         </a>
-                        <a href="#"
+                        {{-- <a href="#"
                             class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -99,16 +99,15 @@
                                     d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
                             Settings
-                        </a>
-
-                        <!-- Divider -->
-                        <div class="border-t border-gray-100 my-2"></div>
+                        </a> --}}
+                        {{-- <hr class="color-red-100 my-2"> --}}
+                        <div class="border-t border-red-500"></div>
 
                         <!-- Logout -->
                         <form action="{{ route('logout') }}" method="POST" class="px-4 py-2">
                             @csrf
                             <button type="submit"
-                                class="flex items-center gap-3 w-full text-left text-sm text-red-600 hover:bg-red-50 px-0 py-1.5 rounded-lg transition-colors">
+                                class="flex items-center gap-3 w-full text-left text-sm text-red-600 hover:bg-red-50 px-0 py-1.5 rounded-lg transition-colors cursor-pointer">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -130,16 +129,16 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0 opacity-0">
-            <nav class="flex flex-col space-y-2 pt-4 pb-6 border-t border-gray-200 mt-4">
+        <div id="mobile-menu" class="md:hidden mt-4 border-t border-gray-200">
+            <nav class="flex flex-col space-y-2 md:space-y-3">
                 <!-- User Info Mobile -->
                 <div
-                    class="px-3 py-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg mb-2 flex items-center gap-3 shadow-sm">
+                    class="px-3 py-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg mb-2 flex items-center gap-3">
                     <!-- User Profile Image -->
                     <div
                         class="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-red-200 shadow-sm flex-shrink-0">
-                        @if (Auth::user()->profile_image)
-                            <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"
+                        @if (Auth::user()->profile_image_path)
+                            <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
                                 alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
                         @else
                             <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
@@ -189,7 +188,7 @@
                 <div class="border-t border-gray-200 my-2"></div>
 
                 <!-- Profile Links -->
-                <a href="#"
+                <a href="{{ route('profile.show') }}"
                     class="nav-link text-gray-700 hover:text-red-500 font-medium transition-all px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
                     <svg class="w-5 h-5 nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -197,23 +196,12 @@
                     </svg>
                     My Profile
                 </a>
-                <a href="#"
-                    class="nav-link text-gray-700 hover:text-red-500 font-medium transition-all px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
-                    <svg class="w-5 h-5 nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    Settings
-                </a>
-
                 <!-- Logout Button Mobile -->
-                <form action="{{ route('logout') }}" method="POST" class="pt-2">
+                <form action="{{ route('logout') }}" method="POST" class="m-2">
                     @csrf
                     <button type="submit"
-                        class="w-full text-left font-medium transition-all duration-200 px-3 py-2.5 rounded-lg flex items-center gap-3 bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2"
+                        class="w-full text-left font-medium transition-all p-2 my-2 rounded-full flex items-center gap-2 bg-red-500 text-white hover:bg-red-600">
+                        <svg class="w-5 h-5 nav-icon" fill="none" stroke="currentColor" stroke-width="2"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
@@ -225,35 +213,3 @@
         </div>
     </div>
 </header>
-
-<script>
-    // Mobile menu toggle animation for authenticated header
-    document.addEventListener('DOMContentLoaded', function() {
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                if (mobileMenu.classList.contains('max-h-0')) {
-                    // Open menu
-                    mobileMenu.classList.remove('max-h-0', 'opacity-0');
-                    mobileMenu.classList.add('max-h-[1000px]', 'opacity-100');
-                    
-                    // Animate hamburger to X
-                    mobileMenuButton.querySelector('svg').innerHTML = `
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                    `;
-                } else {
-                    // Close menu
-                    mobileMenu.classList.remove('max-h-[1000px]', 'opacity-100');
-                    mobileMenu.classList.add('max-h-0', 'opacity-0');
-                    
-                    // Animate X back to hamburger
-                    mobileMenuButton.querySelector('svg').innerHTML = `
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    `;
-                }
-            });
-        }
-    });
-</script>
