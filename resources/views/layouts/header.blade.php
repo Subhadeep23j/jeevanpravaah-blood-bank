@@ -32,7 +32,8 @@
                 </a>
             </nav>
             <div class="md:hidden flex items-center gap-3">
-                <button id="mobile-menu-button" class="text-gray-700 hover:text-red-500 transition-colors">
+                <button id="mobile-menu-button"
+                    class="text-gray-700 hover:text-red-500 transition-colors cursor-pointer">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 6h16M4 12h16M4 18h16"></path>

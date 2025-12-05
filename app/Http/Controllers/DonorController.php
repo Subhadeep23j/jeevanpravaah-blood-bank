@@ -52,9 +52,8 @@ class DonorController extends Controller
         }
 
         DB::transaction(function () use ($request, $validated) {
-            $donor = new Donor($validated);
-            $donor->user_id = $request->user()->id;
-            $donor->save();
+            $validated['user_id'] = $request->user()->id;
+            $donor = Donor::create($validated);
 
             // Increment the user's donations_count atomically
             $request->user()->increment('donations_count');

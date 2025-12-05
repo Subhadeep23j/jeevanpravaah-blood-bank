@@ -5,6 +5,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminLoginController;
+use App\Http\Controllers\AdminDonorController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,6 +36,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+
+    // Donation history
+    Route::get('/my-donations', function () {
+        return view('user.donationHistory');
+    })->name('donation.history');
 });
 
 // Admin routes
@@ -47,4 +53,13 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/dashboard', function () {
         return view('admin.admin-dashboard');
     })->name('admin.dashboard');
+
+    Route::get('/admin/donors', function () {
+        return view('admin.donors');
+    })->name('admin.donors');
+
+    // Donor approval routes
+    Route::post('/admin/donors/{id}/approve', [AdminDonorController::class, 'approve'])->name('admin.donors.approve');
+    Route::post('/admin/donors/{id}/reject', [AdminDonorController::class, 'reject'])->name('admin.donors.reject');
+    Route::post('/admin/donors/{id}/reset', [AdminDonorController::class, 'resetStatus'])->name('admin.donors.reset');
 });

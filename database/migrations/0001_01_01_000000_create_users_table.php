@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedInteger('donations_count')->default(0)->after('remember_token');
+            // $table->unsignedInteger('donations_count')->default(0)->after('remember_token');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title', 'JeevanPravaah')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
+    <link rel="shortcut icon" href="{{ asset('assets/logo.svg') }}" type="image/x-icon">
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -35,7 +36,7 @@
                     </div>
                     <span class="text-xl font-bold">Admin Panel</span>
                 </div>
-                <button @click="sidebarOpen = false" class="lg:hidden text-white hover:text-red-200">
+                <button @click="sidebarOpen = false" class="lg:hidden text-white hover:text-red-200 cursor-pointer">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
                         </path>
@@ -54,8 +55,8 @@
                     Dashboard
                 </a>
 
-                <a href="#"
-                    class="flex items-center px-4 py-3 text-red-100 hover:bg-red-800 rounded-xl transition-colors duration-200">
+                <a href="{{ route('admin.donors') }}"
+                    class="flex items-center px-4 py-3 rounded-xl font-semibold shadow-lg {{ request()->routeIs('admin.donors') ? 'bg-red-800' : 'text-red-100 hover:bg-red-800 transition-colors duration-200' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -86,5 +87,11 @@ class ProfileController extends Controller
         ]);
 
         return redirect()->route('profile.show')->with('success', 'Password updated successfully!');
+    }
+    public function allblog()
+    {
+        $data = User::all();
+        return response()->json(['status' => true, 'data' =>  $data]);
+        return response()->json(['status' => false, 'data' =>  null]);
     }
 }

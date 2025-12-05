@@ -220,7 +220,7 @@
 
             <div class="text-center">
                 <button onclick="startRegistration()"
-                    class="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                    class="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer">
                     I'm Eligible - Start Registration
                 </button>
             </div>
@@ -502,17 +502,17 @@
                     <!-- Navigation Buttons -->
                     <div class="flex justify-between pt-6">
                         <button type="button" id="prevBtn" onclick="prevStep()"
-                            class="px-6 py-3 bg-gray-300 text-gray-700 font-semibold rounded-full transition-all duration-300 hover:bg-gray-400"
+                            class="px-6 py-3 bg-gray-300 text-gray-700 font-semibold rounded-full transition-all duration-300 hover:bg-gray-400 cursor-pointer"
                             style="display: none;">
                             Previous
                         </button>
                         <div class="flex-1"></div>
                         <button type="button" id="nextBtn" onclick="nextStep()"
-                            class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
+                            class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 cursor-pointer">
                             Next
                         </button>
                         <button type="submit" id="submitBtn"
-                            class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105"
+                            class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 cursor-pointer"
                             style="display: none;">
                             Register as Donor
                         </button>

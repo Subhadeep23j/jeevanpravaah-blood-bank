@@ -29,7 +29,7 @@ class RegisterController extends Controller
             'address' => 'required',
             'city' => 'required',
             'pin' => 'required|digits:6',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|confirmed', // min:6|
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'
         ]);
 
