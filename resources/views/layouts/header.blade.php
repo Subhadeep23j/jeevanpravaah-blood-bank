@@ -18,8 +18,8 @@
                     class="nav-link {{ request()->is('about') ? 'text-red-500' : 'text-gray-700 hover:text-red-500' }} font-medium transition-all">About</a>
                 <a href="/donate"
                     class="nav-link {{ request()->is('donate') ? 'text-red-500' : 'text-gray-700 hover:text-red-500' }} font-medium transition-all">Donate</a>
-                <a href="#"
-                    class="nav-link text-gray-700 hover:text-red-500 font-medium transition-all">Contact</a>
+                <a href="/contact"
+                    class="nav-link {{ request()->is('contact') ? 'text-red-500' : 'text-gray-700 hover:text-red-500' }} font-medium transition-all">Contact</a>
                 <a href="/login"
                     class="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold shadow-sm transition-all
                     {{ request()->is('login') ? 'bg-red-500 text-white shadow-red-200' : 'bg-red-500 text-white hover:bg-red-600' }}">
@@ -69,8 +69,8 @@
                     </svg>
                     Donate
                 </a>
-                <a href="#"
-                    class="nav-link text-gray-700 hover:text-red-500 font-medium transition-all px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
+                <a href="/contact"
+                    class="nav-link {{ request()->is('contact') ? 'text-red-500' : 'text-gray-700 hover:text-red-500' }} font-medium transition-all px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
                     <svg class="w-5 h-5 nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

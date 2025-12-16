@@ -30,6 +30,7 @@ class User extends Authenticatable
         'pin',
         'password',
         'donations_count',
+        'email_verified_at',
     ];
 
     /**

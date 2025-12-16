@@ -88,10 +88,10 @@
                     <!-- Submit Button -->
                     <button type="submit"
                         class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
-                        Sign In
+                        Login
                     </button>
                     {{-- admin-login  --}}
-                    <a href="{{route('admin.login')}}"
+                    <a href="{{ route('admin.login') }}"
                         class="block w-full text-center py-4 border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200">
                         Admin Login
                     </a>

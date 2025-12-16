@@ -41,7 +41,7 @@
                     @endif
 
                     <!-- Register Form -->
-                    <form action="{{ route('register.store') }}" method="POST" class="space-y-6"
+                    <form action="{{ route('register.send-otp') }}" method="POST" class="space-y-6"
                         enctype="multipart/form-data">
                         @csrf
 
@@ -159,18 +159,122 @@
                                 <div>
                                     <label for="password"
                                         class="block text-sm font-semibold text-gray-700 mb-2">Password</label>
-                                    <input type="password" name="password" id="password" required
-                                        placeholder="Minimum 8 characters"
-                                        class="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
+                                    <div class="relative w-full">
+                                        <input type="password" name="password" id="password" required
+                                            placeholder="Create a strong password"
+                                            class="w-full px-4 py-3.5 pr-12 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
+                                        <button type="button" id="togglePassword"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer">
+                                            <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            <svg id="eyeOffIcon" class="w-5 h-5 hidden" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <!-- Confirm Password -->
                                 <div>
                                     <label for="password_confirmation"
                                         class="block text-sm font-semibold text-gray-700 mb-2">Confirm Password</label>
-                                    <input type="password" name="password_confirmation" id="password_confirmation"
-                                        required placeholder="Re-enter your password"
-                                        class="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
+                                    <div class="relative w-full">
+                                        <input type="password" name="password_confirmation" id="password_confirmation"
+                                            required placeholder="Re-enter your password"
+                                            class="w-full px-4 py-3.5 pr-12 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
+                                        <button type="button" id="toggleConfirmPassword"
+                                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer">
+                                            <svg id="eyeIconConfirm" class="w-5 h-5" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            <svg id="eyeOffIconConfirm" class="w-5 h-5 hidden" fill="none"
+                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <!-- Password Match Indicator -->
+                                    <div id="passwordMatchIndicator" class="mt-2 hidden">
+                                        <div id="passwordMatch"
+                                            class="flex items-center gap-2 text-sm text-green-600 hidden">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Passwords match
+                                        </div>
+                                        <div id="passwordNoMatch"
+                                            class="flex items-center gap-2 text-sm text-red-600 hidden">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                            Passwords do not match
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Password Requirements -->
+                                <div class="md:col-span-2">
+                                    <div class="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                                        <p class="text-sm font-semibold text-gray-700 mb-2">Password Requirements:</p>
+                                        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                                            <li id="req-length" class="flex items-center gap-2 text-gray-400">
+                                                <svg class="w-4 h-4 req-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                Minimum 8 characters
+                                            </li>
+                                            <li id="req-uppercase" class="flex items-center gap-2 text-gray-400">
+                                                <svg class="w-4 h-4 req-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                At least one uppercase letter
+                                            </li>
+                                            <li id="req-lowercase" class="flex items-center gap-2 text-gray-400">
+                                                <svg class="w-4 h-4 req-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                At least one lowercase letter
+                                            </li>
+                                            <li id="req-number" class="flex items-center gap-2 text-gray-400">
+                                                <svg class="w-4 h-4 req-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                At least one number
+                                            </li>
+                                            <li id="req-special" class="flex items-center gap-2 text-gray-400">
+                                                <svg class="w-4 h-4 req-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                At least one special character (!@#$%^&*)
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +293,7 @@
                             </label>
 
                             <button type="submit"
-                                class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200">
+                                class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
                                 Create Account
                             </button>
                         </div>
@@ -206,12 +310,13 @@
 
                         <a href="{{ url('/login') }}"
                             class="block w-full text-center py-4 border-2 border-gray-200 rounded-xl text-gray-700 font-semibold hover:border-red-500 hover:text-red-600 hover:bg-red-50 transition-all duration-200">
-                            Sign In Instead
+                            Login Instead
                         </a>
                     </form>
                     @push('scripts')
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
+                                // Profile image preview
                                 const input = document.getElementById('profile_image');
                                 const preview = document.getElementById('profilePreview');
                                 if (input && preview) {
@@ -226,6 +331,111 @@
                                         reader.readAsDataURL(file);
                                     });
                                 }
+
+                                // Password visibility toggle
+                                const togglePassword = document.getElementById('togglePassword');
+                                const passwordInput = document.getElementById('password');
+                                const eyeIcon = document.getElementById('eyeIcon');
+                                const eyeOffIcon = document.getElementById('eyeOffIcon');
+
+                                togglePassword.addEventListener('click', function() {
+                                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                                    passwordInput.setAttribute('type', type);
+                                    eyeIcon.classList.toggle('hidden');
+                                    eyeOffIcon.classList.toggle('hidden');
+                                });
+
+                                // Confirm password visibility toggle
+                                const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+                                const confirmPasswordInput = document.getElementById('password_confirmation');
+                                const eyeIconConfirm = document.getElementById('eyeIconConfirm');
+                                const eyeOffIconConfirm = document.getElementById('eyeOffIconConfirm');
+
+                                toggleConfirmPassword.addEventListener('click', function() {
+                                    const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                                    confirmPasswordInput.setAttribute('type', type);
+                                    eyeIconConfirm.classList.toggle('hidden');
+                                    eyeOffIconConfirm.classList.toggle('hidden');
+                                });
+
+                                // Password requirements validation
+                                const requirements = {
+                                    length: {
+                                        element: document.getElementById('req-length'),
+                                        regex: /.{8,}/
+                                    },
+                                    uppercase: {
+                                        element: document.getElementById('req-uppercase'),
+                                        regex: /[A-Z]/
+                                    },
+                                    lowercase: {
+                                        element: document.getElementById('req-lowercase'),
+                                        regex: /[a-z]/
+                                    },
+                                    number: {
+                                        element: document.getElementById('req-number'),
+                                        regex: /[0-9]/
+                                    },
+                                    special: {
+                                        element: document.getElementById('req-special'),
+                                        regex: /[!@#$%^&*(),.?":{}|<>]/
+                                    }
+                                };
+
+                                function updateRequirement(element, isValid) {
+                                    if (isValid) {
+                                        element.classList.remove('text-gray-400');
+                                        element.classList.add('text-green-600');
+                                    } else {
+                                        element.classList.remove('text-green-600');
+                                        element.classList.add('text-gray-400');
+                                    }
+                                }
+
+                                function validatePassword() {
+                                    const password = passwordInput.value;
+
+                                    for (const [key, req] of Object.entries(requirements)) {
+                                        const isValid = req.regex.test(password);
+                                        updateRequirement(req.element, isValid);
+                                    }
+
+                                    // Also check password match when password changes
+                                    checkPasswordMatch();
+                                }
+
+                                // Password match validation
+                                const passwordMatchIndicator = document.getElementById('passwordMatchIndicator');
+                                const passwordMatch = document.getElementById('passwordMatch');
+                                const passwordNoMatch = document.getElementById('passwordNoMatch');
+
+                                function checkPasswordMatch() {
+                                    const password = passwordInput.value;
+                                    const confirmPassword = confirmPasswordInput.value;
+
+                                    if (confirmPassword.length === 0) {
+                                        passwordMatchIndicator.classList.add('hidden');
+                                        return;
+                                    }
+
+                                    passwordMatchIndicator.classList.remove('hidden');
+
+                                    if (password === confirmPassword) {
+                                        passwordMatch.classList.remove('hidden');
+                                        passwordNoMatch.classList.add('hidden');
+                                        confirmPasswordInput.classList.remove('border-red-500');
+                                        confirmPasswordInput.classList.add('border-green-500');
+                                    } else {
+                                        passwordMatch.classList.add('hidden');
+                                        passwordNoMatch.classList.remove('hidden');
+                                        confirmPasswordInput.classList.remove('border-green-500');
+                                        confirmPasswordInput.classList.add('border-red-500');
+                                    }
+                                }
+
+                                // Event listeners for live validation
+                                passwordInput.addEventListener('input', validatePassword);
+                                confirmPasswordInput.addEventListener('input', checkPasswordMatch);
                             });
                         </script>
                     @endpush

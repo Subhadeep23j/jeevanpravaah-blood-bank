@@ -20,18 +20,18 @@
                 <ul class="space-y-2 text-gray-600">
                     <li><a href="/" class="hover:text-red-500 transition-colors">Home</a></li>
                     <li><a href="/about" class="hover:text-red-500 transition-colors">About</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors">Donate</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition-colors">Contact</a></li>
+                    <li><a href="/donate" class="hover:text-red-500 transition-colors">Donate</a></li>
+                    <li><a href="/contact" class="hover:text-red-500 transition-colors">Contact</a></li>
                 </ul>
             </div>
-            <div>
+            {{-- <div>
                 <h5 class="font-bold text-gray-800 mb-4">Resources</h5>
                 <ul class="space-y-2 text-gray-600">
                     <li><a href="#" class="hover:text-red-500 transition-colors">Blog</a></li>
                     <li><a href="#" class="hover:text-red-500 transition-colors">FAQs</a></li>
                     <li><a href="#" class="hover:text-red-500 transition-colors">Events</a></li>
                 </ul>
-            </div>
+            </div> --}}
             <div>
                 <h5 class="font-bold text-gray-800 mb-4">Support</h5>
                 <ul class="space-y-2 text-gray-600">

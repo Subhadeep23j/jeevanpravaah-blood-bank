@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDonorController;
+use App\Http\Controllers\OtpController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,6 +15,12 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('about');
 })->name('about');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'])->name('contact.submit');
 
 use App\Http\Controllers\DonorController;
 
@@ -27,15 +34,29 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Registration routes
-Route::get('register', [RegisterController::class, 'showRegisterForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register'])->name('register.store');
+// Registration with OTP verification
+Route::get('register', [OtpController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [OtpController::class, 'sendOtp'])->name('register.send-otp');
+Route::get('verify-otp', [OtpController::class, 'showVerifyForm'])->name('otp.verify.form');
+Route::post('verify-otp', [OtpController::class, 'verifyOtp'])->name('otp.verify');
+Route::post('resend-otp', [OtpController::class, 'resendOtp'])->name('otp.resend');
 
 // Profile routes (protected by auth middleware)
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+
+    // Profile update OTP verification
+    Route::get('/profile/verify-otp', [ProfileController::class, 'showVerifyOtpForm'])->name('profile.verify.otp.form');
+    Route::post('/profile/verify-otp', [ProfileController::class, 'verifyOtpAndUpdate'])->name('profile.verify.otp');
+    Route::post('/profile/resend-otp', [ProfileController::class, 'resendProfileOtp'])->name('profile.resend.otp');
+
+    // Delete account with OTP verification
+    Route::post('/profile/delete', [ProfileController::class, 'initiateDestroy'])->name('profile.delete.initiate');
+    Route::get('/profile/delete/verify-otp', [ProfileController::class, 'showDeleteOtpForm'])->name('profile.delete.otp.form');
+    Route::post('/profile/delete/verify-otp', [ProfileController::class, 'verifyOtpAndDestroy'])->name('profile.delete.otp.verify');
+    Route::post('/profile/delete/resend-otp', [ProfileController::class, 'resendDeleteOtp'])->name('profile.delete.resend.otp');
 
     // Donation history
     Route::get('/my-donations', function () {

@@ -248,11 +248,38 @@
                                     </div>
                                     <div class="mt-8 flex justify-end">
                                         <button type="submit"
-                                            class="px-8 py-3 bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold rounded-lg hover:from-orange-600 hover:to-red-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-orange-300">
+                                            class="px-8 py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-bold rounded-lg hover:from-red-600 hover:to-red-700 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-red-300">
                                             Update Password
                                         </button>
                                     </div>
                                 </form>
+
+                                <!-- Delete Account Section -->
+                                <div class="mt-12 pt-8 border-t border-gray-200">
+                                    <div class="bg-red-50 border border-red-200 rounded-xl p-6">
+                                        <div class="flex items-start gap-4">
+                                            <div
+                                                class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center flex-shrink-0">
+                                                <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                                </svg>
+                                            </div>
+                                            <div class="flex-1">
+                                                <h3 class="text-lg font-bold text-red-800 mb-2">Delete Account</h3>
+                                                <p class="text-sm text-red-700 mb-4">
+                                                    Once you delete your account, all of your data will be permanently
+                                                    removed. This action cannot be undone.
+                                                </p>
+                                                <button type="button" x-data @click="$dispatch('open-delete-modal')"
+                                                    class="px-6 py-2.5 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-all duration-200 shadow-md hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-red-300">
+                                                    Delete My Account
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div x-show="tab === 'donations'" x-transition style="display: none;">
@@ -477,4 +504,67 @@
             });
         });
     </script>
+
+    <!-- Delete Account Modal -->
+    <div x-data="{ open: false }" x-on:open-delete-modal.window="open = true" x-show="open" x-cloak
+        class="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+            <!-- Background overlay -->
+            <div x-show="open" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" @click="open = false"></div>
+
+            <!-- Modal panel -->
+            <div x-show="open" x-transition:enter="ease-out duration-300"
+                x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200"
+                x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                class="relative inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl">
+
+                <div class="flex items-center justify-center w-16 h-16 mx-auto bg-red-100 rounded-full mb-4">
+                    <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                </div>
+
+                <h3 class="text-xl font-bold text-center text-gray-900 mb-2" id="modal-title">
+                    Delete Your Account?
+                </h3>
+                <p class="text-sm text-center text-gray-600 mb-6">
+                    This action is permanent and cannot be undone. All your data, including donation history and profile
+                    information, will be permanently deleted.
+                </p>
+
+                <form action="{{ route('profile.delete.initiate') }}" method="POST">
+                    @csrf
+
+                    <div class="mb-6">
+                        <label for="delete_password" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Enter your password to confirm
+                        </label>
+                        <input type="password" name="password" id="delete_password" required
+                            placeholder="Your current password"
+                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all duration-200 bg-gray-50 focus:bg-white">
+                        @error('password')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <div class="flex gap-3">
+                        <button type="button" @click="open = false"
+                            class="flex-1 px-4 py-3 text-gray-700 font-semibold bg-gray-100 rounded-lg hover:bg-gray-200 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-gray-300">
+                            Cancel
+                        </button>
+                        <button type="submit"
+                            class="flex-1 px-4 py-3 text-white font-semibold bg-red-600 rounded-lg hover:bg-red-700 transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-red-300">
+                            Send OTP & Continue
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection
