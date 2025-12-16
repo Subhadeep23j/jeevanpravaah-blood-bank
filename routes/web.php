@@ -8,6 +8,10 @@ use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDonorController;
 use App\Http\Controllers\OtpController;
 
+Route::get('/test', function () {
+    return 'Laravel OK';
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
