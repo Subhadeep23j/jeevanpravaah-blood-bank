@@ -56,19 +56,25 @@
                     <div class="glass-card rounded-3xl p-8 hover-lift">
                         <div class="grid grid-cols-2 gap-6 text-center">
                             <div class="p-4">
-                                <div class="text-3xl font-bold text-red-500 mb-2">25,000+</div>
+                                <div class="text-3xl font-bold text-red-500 mb-2">
+                                    {{ number_format($stats['lives_saved'] > 0 ? $stats['lives_saved'] : 25000) }}+</div>
                                 <div class="text-gray-600 text-sm font-medium">Lives Saved</div>
                             </div>
                             <div class="p-4">
-                                <div class="text-3xl font-bold text-red-500 mb-2">15,000+</div>
+                                <div class="text-3xl font-bold text-red-500 mb-2">
+                                    {{ number_format($stats['active_donors'] > 0 ? $stats['active_donors'] : 15000) }}+
+                                </div>
                                 <div class="text-gray-600 text-sm font-medium">Active Donors</div>
                             </div>
                             <div class="p-4">
-                                <div class="text-3xl font-bold text-red-500 mb-2">500+</div>
-                                <div class="text-gray-600 text-sm font-medium">Partner Hospitals</div>
+                                <div class="text-3xl font-bold text-red-500 mb-2">
+                                    {{ number_format($stats['registered_users'] > 0 ? $stats['registered_users'] : 500) }}+
+                                </div>
+                                <div class="text-gray-600 text-sm font-medium">Registered Users</div>
                             </div>
                             <div class="p-4">
-                                <div class="text-3xl font-bold text-red-500 mb-2">50+</div>
+                                <div class="text-3xl font-bold text-red-500 mb-2">
+                                    {{ $stats['cities'] > 0 ? $stats['cities'] : 50 }}+</div>
                                 <div class="text-gray-600 text-sm font-medium">Cities</div>
                             </div>
                         </div>
@@ -304,8 +310,12 @@
                         <div class="flex-1 text-right pr-8">
                             <div class="glass-card rounded-2xl p-6 border border-red-100">
                                 <h4 class="text-lg font-bold text-gray-800 mb-2">2025 - National Expansion</h4>
-                                <p class="text-gray-600">Expanding to 50+ cities with 15,000+ active donors and 500+
-                                    partner hospitals.</p>
+                                <p class="text-gray-600">Expanding to {{ $stats['cities'] > 0 ? $stats['cities'] : 50 }}+
+                                    cities with
+                                    {{ number_format($stats['active_donors'] > 0 ? $stats['active_donors'] : 15000) }}+
+                                    active donors and
+                                    {{ number_format($stats['registered_users'] > 0 ? $stats['registered_users'] : 500) }}+
+                                    registered users.</p>
                             </div>
                         </div>
                         <div class="w-4 h-4 bg-red-500 rounded-full border-4 border-white shadow-lg relative z-10"></div>

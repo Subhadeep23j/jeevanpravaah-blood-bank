@@ -7,18 +7,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminLoginController;
 use App\Http\Controllers\AdminDonorController;
 use App\Http\Controllers\OtpController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\DonorController;
 
 Route::get('/test', function () {
     return 'Laravel OK';
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/about', [AboutController::class, 'index'])->name('about');
 
 Route::get('/contact', function () {
     return view('contact');
@@ -26,11 +26,7 @@ Route::get('/contact', function () {
 
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'])->name('contact.submit');
 
-use App\Http\Controllers\DonorController;
-
-Route::get('/donate', function () {
-    return view('donate');
-})->name('donate');
+Route::get('/donate', [DonorController::class, 'showForm'])->name('donate');
 Route::post('/donors', [DonorController::class, 'store'])->middleware('auth')->name('donors.store');
 
 // Authentication routes
@@ -75,16 +71,14 @@ Route::post('/admin-logout', [AdminLoginController::class, 'logout'])->name('adm
 
 // Admin dashboard (protected)
 Route::middleware('auth:admin')->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin.admin-dashboard');
-    })->name('admin.dashboard');
-
-    Route::get('/admin/donors', function () {
-        return view('admin.donors');
-    })->name('admin.donors');
+    Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/admin/donors', [AdminDashboardController::class, 'donors'])->name('admin.donors');
 
     // Donor approval routes
     Route::post('/admin/donors/{id}/approve', [AdminDonorController::class, 'approve'])->name('admin.donors.approve');
     Route::post('/admin/donors/{id}/reject', [AdminDonorController::class, 'reject'])->name('admin.donors.reject');
     Route::post('/admin/donors/{id}/reset', [AdminDonorController::class, 'resetStatus'])->name('admin.donors.reset');
+
+    // Bulk actions
+    Route::post('/admin/donors/bulk-action', [AdminDonorController::class, 'bulkAction'])->name('admin.donors.bulk');
 });

@@ -4,16 +4,18 @@
 
 @section('content')
     {{-- Main container with reduced vertical spacing (space-y-4) --}}
-    <div class="space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="space-y-4 max-w-full">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
             {{-- Stat Cards with reduced padding (p-4) --}}
             <div
                 class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-600">Total Donors</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-1">1,247</p>
-                        <p class="text-xs text-green-600 mt-1">↑ 12% from last month</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-1">{{ number_format($stats['total_donors']) }}</p>
+                        <p class="text-xs text-{{ $stats['monthly_growth'] >= 0 ? 'green' : 'red' }}-600 mt-1">
+                            {{ $stats['monthly_growth'] >= 0 ? '↑' : '↓' }} {{ abs($stats['monthly_growth']) }}% from last
+                            month</p>
                     </div>
                     <div
                         class="w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -30,9 +32,9 @@
                 class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">Blood Units</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-1">847</p>
-                        <p class="text-xs text-green-600 mt-1">↑ 8% from last week</p>
+                        <p class="text-sm font-medium text-gray-600">Approved Donors</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-1">{{ number_format($stats['approved_donors']) }}</p>
+                        <p class="text-xs text-green-600 mt-1">Ready to donate</p>
                     </div>
                     <div
                         class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -49,8 +51,9 @@
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-sm font-medium text-gray-600">Pending Requests</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-1">34</p>
-                        <p class="text-xs text-orange-600 mt-1">Needs attention</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-1">{{ number_format($stats['pending_requests']) }}</p>
+                        <p class="text-xs text-orange-600 mt-1">
+                            {{ $stats['pending_requests'] > 0 ? 'Needs attention' : 'All clear' }}</p>
                     </div>
                     <div
                         class="w-14 h-14 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -67,9 +70,9 @@
                 class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm font-medium text-gray-600">Total Donations</p>
-                        <p class="text-3xl font-bold text-gray-900 mt-1">3,521</p>
-                        <p class="text-xs text-green-600 mt-1">↑ 18% this year</p>
+                        <p class="text-sm font-medium text-gray-600">Registered Users</p>
+                        <p class="text-3xl font-bold text-gray-900 mt-1">{{ number_format($stats['total_users']) }}</p>
+                        <p class="text-xs text-green-600 mt-1">{{ $stats['today_donors'] }} new today</p>
                     </div>
                     <div
                         class="w-14 h-14 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg">
@@ -87,51 +90,37 @@
             <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-bold text-gray-900">Recent Donations</h3>
-                    <a href="#" class="text-sm font-semibold text-red-600 hover:text-red-700">View All →</a>
+                    <a href="{{ route('admin.donors') }}" class="text-sm font-semibold text-red-600 hover:text-red-700">View
+                        All →</a>
                 </div>
                 <div class="space-y-3">
-                    <div
-                        class="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold shadow text-sm">
-                                A+</div>
-                            <div>
-                                <p class="font-semibold text-gray-900 text-sm">John Doe</p>
-                                <p class="text-xs text-gray-500">2 hours ago</p>
+                    @forelse($recentDonations as $donation)
+                        <div
+                            class="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+                            <div class="flex items-center space-x-3">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center text-white font-bold shadow text-sm">
+                                    {{ $donation->blood_group }}</div>
+                                <div>
+                                    <p class="font-semibold text-gray-900 text-sm">{{ $donation->first_name }}
+                                        {{ $donation->last_name }}</p>
+                                    <p class="text-xs text-gray-500">{{ $donation->created_at->diffForHumans() }}</p>
+                                </div>
                             </div>
+                            <span
+                                class="px-3 py-1 bg-{{ $donation->approval_status === 'approved' ? 'green' : ($donation->approval_status === 'pending' ? 'yellow' : 'red') }}-100 text-{{ $donation->approval_status === 'approved' ? 'green' : ($donation->approval_status === 'pending' ? 'yellow' : 'red') }}-700 rounded-full text-xs font-semibold">{{ ucfirst($donation->approval_status ?? 'Pending') }}</span>
                         </div>
-                        <span
-                            class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Completed</span>
-                    </div>
-                    <div
-                        class="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white font-bold shadow text-sm">
-                                O-</div>
-                            <div>
-                                <p class="font-semibold text-gray-900 text-sm">Sarah Smith</p>
-                                <p class="text-xs text-gray-500">5 hours ago</p>
-                            </div>
+                    @empty
+                        <div class="text-center py-8 text-gray-500">
+                            <svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4">
+                                </path>
+                            </svg>
+                            <p class="text-sm">No donations yet</p>
                         </div>
-                        <span
-                            class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Completed</span>
-                    </div>
-                    <div
-                        class="flex items-center justify-between p-3 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                        <div class="flex items-center space-x-3">
-                            <div
-                                class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-bold shadow text-sm">
-                                B+</div>
-                            <div>
-                                <p class="font-semibold text-gray-900 text-sm">Mike Johnson</p>
-                                <p class="text-xs text-gray-500">1 day ago</p>
-                            </div>
-                        </div>
-                        <span
-                            class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-semibold">Completed</span>
-                    </div>
+                    @endforelse
                 </div>
             </div>
 
@@ -139,40 +128,40 @@
             <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100">
                 <div class="flex items-center justify-between mb-4">
                     <h3 class="text-lg font-bold text-gray-900">Blood Type Distribution</h3>
-                    <span class="text-sm text-gray-500">Units Available</span>
+                    <span class="text-sm text-gray-500">Donors Available</span>
                 </div>
                 <div class="space-y-3">
-                    {{-- Progress bar items --}}
-                    <div>
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs font-semibold text-gray-700">A+</span>
-                            <span class="text-xs font-bold text-gray-900">247 units</span>
+                    @php
+                        $bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+                        $maxCount = count($bloodGroupStats) > 0 ? max($bloodGroupStats) : 1;
+                        $colors = [
+                            'A+' => 'red',
+                            'A-' => 'pink',
+                            'B+' => 'blue',
+                            'B-' => 'indigo',
+                            'AB+' => 'purple',
+                            'AB-' => 'violet',
+                            'O+' => 'green',
+                            'O-' => 'teal',
+                        ];
+                    @endphp
+                    @foreach ($bloodGroups as $group)
+                        @php
+                            $count = $bloodGroupStats[$group] ?? 0;
+                            $percentage = $maxCount > 0 ? ($count / $maxCount) * 100 : 0;
+                            $color = $colors[$group] ?? 'gray';
+                        @endphp
+                        <div>
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-xs font-semibold text-gray-700">{{ $group }}</span>
+                                <span class="text-xs font-bold text-gray-900">{{ $count }} donors</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2.5">
+                                <div class="bg-gradient-to-r from-red-500 to-red-600 h-2.5 rounded-full shadow-sm"
+                                    style="width: {{ $percentage }}%"></div>
+                            </div>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-gradient-to-r from-red-500 to-red-600 h-2.5 rounded-full shadow-sm"
-                                style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs font-semibold text-gray-700">O+</span>
-                            <span class="text-xs font-bold text-gray-900">198 units</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2.5 rounded-full shadow-sm"
-                                style="width: 68%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-xs font-semibold text-gray-700">B+</span>
-                            <span class="text-xs font-bold text-gray-900">156 units</span>
-                        </div>
-                        <div class="w-full bg-gray-200 rounded-full h-2.5">
-                            <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2.5 rounded-full shadow-sm"
-                                style="width: 54%"></div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

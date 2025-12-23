@@ -3,11 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donor;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DonorController extends Controller
 {
+    /**
+     * Show the donation form with dynamic stats
+     */
+    public function showForm()
+    {
+        // Get statistics for the donate page
+        $stats = [
+            'lives_saved' => Donor::where('approval_status', 'approved')->count() * 3,
+            'active_donors' => Donor::where('approval_status', 'approved')->count(),
+            'registered_users' => User::count(),
+        ];
+
+        // Blood group availability
+        $bloodGroupStats = Donor::where('approval_status', 'approved')
+            ->selectRaw('blood_group, COUNT(*) as count')
+            ->groupBy('blood_group')
+            ->pluck('count', 'blood_group')
+            ->toArray();
+
+        return view('donate', compact('stats', 'bloodGroupStats'));
+    }
+
     public function store(Request $request)
     {
         $validated = $request->validate([

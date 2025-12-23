@@ -63,25 +63,26 @@
                 data-aos-delay="600">
                 <div class="glass-card rounded-2xl p-4 sm:p-6 hover-lift text-center group cursor-pointer">
                     <div class="text-2xl sm:text-3xl font-black text-red-500 mb-1 stats-counter group-hover:scale-110 transition-transform duration-300"
-                        data-target="25000">0</div>
+                        data-target="{{ $stats['lives_saved'] > 0 ? $stats['lives_saved'] : 25000 }}">0</div>
                     <div class="text-sm sm:text-base text-gray-600 font-semibold">Lives Saved</div>
                     <div class="text-xs text-gray-400 mt-1">and counting...</div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 sm:p-6 hover-lift text-center group cursor-pointer">
                     <div class="text-2xl sm:text-3xl font-black text-red-500 mb-1 stats-counter group-hover:scale-110 transition-transform duration-300"
-                        data-target="15000">0</div>
+                        data-target="{{ $stats['active_donors'] > 0 ? $stats['active_donors'] : $stats['registered_users'] }}">
+                        0</div>
                     <div class="text-sm sm:text-base text-gray-600 font-semibold">Active Donors</div>
                     <div class="text-xs text-gray-400 mt-1">verified heroes</div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 sm:p-6 hover-lift text-center group cursor-pointer">
                     <div class="text-2xl sm:text-3xl font-black text-red-500 mb-1 stats-counter group-hover:scale-110 transition-transform duration-300"
-                        data-target="500">0</div>
-                    <div class="text-sm sm:text-base text-gray-600 font-semibold">Hospitals</div>
-                    <div class="text-xs text-gray-400 mt-1">partner network</div>
+                        data-target="{{ $stats['registered_users'] > 0 ? $stats['registered_users'] : 500 }}">0</div>
+                    <div class="text-sm sm:text-base text-gray-600 font-semibold">Registered Users</div>
+                    <div class="text-xs text-gray-400 mt-1">growing community</div>
                 </div>
                 <div class="glass-card rounded-2xl p-4 sm:p-6 hover-lift text-center group cursor-pointer">
                     <div class="text-2xl sm:text-3xl font-black text-red-500 mb-1 stats-counter group-hover:scale-110 transition-transform duration-300"
-                        data-target="24">0</div>
+                        data-target="{{ $stats['cities'] > 0 ? $stats['cities'] : 24 }}">0</div>
                     <div class="text-sm sm:text-base text-gray-600 font-semibold">Cities</div>
                     <div class="text-xs text-gray-400 mt-1">nationwide</div>
                 </div>
@@ -300,8 +301,9 @@
 
             <p class="text-xl sm:text-2xl text-gray-700 mb-8 leading-relaxed max-w-4xl mx-auto font-medium"
                 data-aos="fade-up" data-aos-delay="300">
-                Join <strong class="text-red-600">25,000+</strong> heroes who have already registered.<br
-                    class="hidden sm:block">
+                Join <strong
+                    class="text-red-600">{{ number_format($stats['registered_users'] > 0 ? $stats['registered_users'] : 25000) }}+</strong>
+                heroes who have already registered.<br class="hidden sm:block">
                 Your donation could be the difference between <span class="text-red-500 font-semibold">life and
                     death</span>.
             </p>
@@ -311,11 +313,11 @@
                 data-aos="fade-up" data-aos-delay="400">
                 <div class="flex items-center text-red-600">
                     <div class="w-3 h-3 bg-red-500 rounded-full mr-2 animate-pulse"></div>
-                    <span>120+ requests today</span>
+                    <span>{{ $stats['pending_requests'] > 0 ? $stats['pending_requests'] : 120 }}+ requests today</span>
                 </div>
                 <div class="flex items-center text-red-600">
                     <div class="w-3 h-3 bg-red-500 rounded-full mr-2 animate-pulse" style="animation-delay: 0.5s;"></div>
-                    <span>Emergency shortage: O- blood</span>
+                    <span>Emergency shortage: {{ $shortageBloodGroup ?? 'O-' }} blood</span>
                 </div>
             </div>
 
