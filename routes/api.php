@@ -4,12 +4,20 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Models\Donor;
 use App\Models\User;
+use App\Http\Controllers\MobileAdminLoginController;
 
 /*
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
 */
+
+// Mobile Admin Authentication (Public)
+Route::prefix('v1')->group(function () {
+    Route::post('/admin/login', [MobileAdminLoginController::class, 'login']);
+    Route::post('/admin/logout', [MobileAdminLoginController::class, 'logout'])->middleware('auth:sanctum');
+    Route::get('/admin/profile', [MobileAdminLoginController::class, 'profile'])->middleware('auth:sanctum');
+});
 
 // Public API Routes
 Route::prefix('v1')->group(function () {

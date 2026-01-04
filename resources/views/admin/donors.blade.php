@@ -5,8 +5,8 @@
 @section('content')
     <div class="space-y-6 max-w-full overflow-hidden">
         <!-- Statistics Overview -->
-        <div class="flex gap-4">
-            <div class="flex-1 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-4 text-white">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg p-4 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-blue-100 text-xs font-medium">Total Donors</p>
@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-4 text-white">
+            <div class="bg-gradient-to-br from-red-500 to-red-600 rounded-xl shadow-lg p-4 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-red-100 text-xs font-medium">Today's Donors</p>
@@ -28,7 +28,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-4 text-white">
+            <div class="bg-gradient-to-br from-green-500 to-green-600 rounded-xl shadow-lg p-4 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-green-100 text-xs font-medium">This Month</p>
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="flex-1 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-4 text-white">
+            <div class="bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl shadow-lg p-4 text-white">
                 <div class="flex items-center justify-between">
                     <div>
                         <p class="text-purple-100 text-xs font-medium">Unique Users</p>
@@ -53,12 +53,12 @@
 
         <!-- Filters and Search -->
         <div class="bg-white rounded-xl shadow-md border border-gray-100 p-3">
-            <div class="flex gap-3 items-center justify-between">
-                <div class="flex items-center gap-3">
+            <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
                     <div class="relative flex items-center">
                         <span class="absolute left-3 text-gray-400"><i class="fa-solid fa-search"></i></span>
                         <input type="text" id="searchDonor" placeholder="Search donors..."
-                            class="w-64 pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
+                            class="w-full sm:w-64 pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
                     </div>
                     <select id="bloodGroupFilter"
                         class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500">
@@ -81,10 +81,11 @@
                     </select>
                 </div>
                 <!-- Bulk Actions -->
-                <div class="flex items-center gap-2" id="bulkActions" style="display: none;">
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2" id="bulkActions"
+                    style="display: none;">
                     <span class="text-sm text-gray-600"><span id="selectedCount">0</span> selected</span>
                     <button onclick="bulkApprove()"
-                        class="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg flex items-center gap-1">
+                        class="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium rounded-lg flex items-center justify-center gap-1">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -93,7 +94,7 @@
                         Approve All
                     </button>
                     <button onclick="bulkReject()"
-                        class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg flex items-center gap-1">
+                        class="px-3 py-1.5 bg-red-500 hover:bg-red-600 text-white text-sm font-medium rounded-lg flex items-center justify-center gap-1">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -102,7 +103,7 @@
                         Reject All
                     </button>
                     <button onclick="bulkReset()"
-                        class="px-3 py-1.5 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-lg flex items-center gap-1">
+                        class="px-3 py-1.5 bg-gray-500 hover:bg-gray-600 text-white text-sm font-medium rounded-lg flex items-center justify-center gap-1">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
                                 d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
@@ -123,161 +124,283 @@
             </div>
 
             @if ($donors->count() > 0)
-                <table class="w-full text-sm" id="donorsTable">
-                    <thead class="bg-gray-50 border-b border-gray-200">
-                        <tr>
-                            <th class="px-2 py-2 text-left">
-                                <input type="checkbox" id="selectAll"
-                                    class="w-4 h-4 text-red-500 rounded border-gray-300 focus:ring-red-500 cursor-pointer">
-                            </th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">#</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Name</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Contact</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Blood</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Gender</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Age</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Location</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Date</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Status</th>
-                            <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        @foreach ($donors as $index => $donor)
-                            <tr class="hover:bg-gray-50 donor-row" data-id="{{ $donor->id }}"
-                                data-name="{{ strtolower($donor->first_name . ' ' . $donor->last_name) }}"
-                                data-email="{{ strtolower($donor->email) }}" data-blood="{{ $donor->blood_group }}"
-                                data-gender="{{ $donor->gender }}" data-status="{{ $donor->approval_status }}">
-                                <td class="px-2 py-1.5">
-                                    <input type="checkbox"
-                                        class="donor-checkbox w-4 h-4 text-red-500 rounded border-gray-300 focus:ring-red-500 cursor-pointer"
-                                        value="{{ $donor->id }}">
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    <span class="font-medium text-gray-700">{{ $index + 1 }}</span>
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    <div class="flex items-center gap-2">
-                                        <div
-                                            class="w-7 h-7 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0">
-                                            {{ strtoupper(substr($donor->first_name, 0, 1)) }}
+                <!-- Desktop Table View -->
+                <div class="hidden md:block overflow-x-auto">
+                    <table class="w-full text-sm" id="donorsTable">
+                        <thead class="bg-gray-50 border-b border-gray-200">
+                            <tr>
+                                <th class="px-2 py-2 text-left">
+                                    <input type="checkbox" id="selectAll"
+                                        class="w-4 h-4 text-red-500 rounded border-gray-300 focus:ring-red-500 cursor-pointer">
+                                </th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">#</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Name</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Contact</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Blood</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Gender</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Age</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Location</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Date</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Status</th>
+                                <th class="px-2 py-2 text-left text-xs font-semibold text-gray-600">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            @foreach ($donors as $index => $donor)
+                                <tr class="hover:bg-gray-50 donor-row" data-id="{{ $donor->id }}"
+                                    data-name="{{ strtolower($donor->first_name . ' ' . $donor->last_name) }}"
+                                    data-email="{{ strtolower($donor->email) }}" data-blood="{{ $donor->blood_group }}"
+                                    data-gender="{{ $donor->gender }}" data-status="{{ $donor->approval_status }}">
+                                    <td class="px-2 py-1.5">
+                                        <input type="checkbox"
+                                            class="donor-checkbox w-4 h-4 text-red-500 rounded border-gray-300 focus:ring-red-500 cursor-pointer"
+                                            value="{{ $donor->id }}">
+                                    </td>
+                                    <td class="px-2 py-1.5">
+                                        <span class="font-medium text-gray-700">{{ $index + 1 }}</span>
+                                    </td>
+                                    <td class="px-2 py-1.5">
+                                        <div class="flex items-center gap-2">
+                                            <div
+                                                class="w-7 h-7 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0">
+                                                {{ strtoupper(substr($donor->first_name, 0, 1)) }}
+                                            </div>
+                                            <div class="min-w-0">
+                                                <div class="font-medium text-gray-900 truncate">{{ $donor->first_name }}
+                                                    {{ $donor->last_name }}</div>
+                                                <div class="text-xs text-gray-400">
+                                                    #{{ str_pad($donor->id, 4, '0', STR_PAD_LEFT) }}</div>
+                                            </div>
                                         </div>
-                                        <div class="min-w-0">
-                                            <div class="font-medium text-gray-900 truncate">{{ $donor->first_name }}
-                                                {{ $donor->last_name }}</div>
-                                            <div class="text-xs text-gray-400">
-                                                #{{ str_pad($donor->id, 4, '0', STR_PAD_LEFT) }}</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    <div class="text-gray-900 truncate">{{ $donor->phone }}</div>
-                                    <div class="text-xs text-gray-400 truncate">{{ $donor->email }}</div>
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    <span
-                                        class="px-2 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700">{{ $donor->blood_group }}</span>
-                                </td>
-                                <td class="px-2 py-1.5 text-gray-700">{{ strtolower($donor->gender) }}</td>
-                                <td class="px-2 py-1.5 text-gray-700">
-                                    {{ \Carbon\Carbon::parse($donor->date_of_birth)->age }}</td>
-                                <td class="px-2 py-1.5">
-                                    <div class="text-gray-900 truncate">{{ $donor->city }}</div>
-                                    <div class="text-xs text-gray-400 truncate">{{ $donor->state }}</div>
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    <div class="text-gray-700">{{ $donor->created_at->format('M d, Y') }}</div>
-                                    <div class="text-xs text-gray-400">{{ $donor->created_at->diffForHumans() }}</div>
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    @if ($donor->approval_status === 'approved')
+                                    </td>
+                                    <td class="px-2 py-1.5">
+                                        <div class="text-gray-900 truncate">{{ $donor->phone }}</div>
+                                        <div class="text-xs text-gray-400 truncate">{{ $donor->email }}</div>
+                                    </td>
+                                    <td class="px-2 py-1.5">
                                         <span
-                                            class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700">✓
-                                            Approved</span>
-                                    @elseif($donor->approval_status === 'rejected')
-                                        <span
-                                            class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-700">✗
-                                            Rejected</span>
-                                    @else
-                                        <span
-                                            class="px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">⏳
-                                            Pending</span>
-                                    @endif
-                                </td>
-                                <td class="px-2 py-1.5">
-                                    <div class="flex items-center gap-1">
-                                        <button onclick="showDonorDetails({{ $donor->id }})"
-                                            class="p-1 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded"
-                                            title="View">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                            </svg>
-                                        </button>
-                                        @if ($donor->approval_status !== 'approved')
-                                            <form action="{{ route('admin.donors.approve', $donor->id) }}" method="POST"
-                                                class="inline" data-confirm="Approve this donor?">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="p-1 bg-green-100 hover:bg-green-200 text-green-600 rounded"
-                                                    title="Approve">
-                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd"
-                                                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                </button>
-                                            </form>
+                                            class="px-2 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700">{{ $donor->blood_group }}</span>
+                                    </td>
+                                    <td class="px-2 py-1.5 text-gray-700">{{ strtolower($donor->gender) }}</td>
+                                    <td class="px-2 py-1.5 text-gray-700">
+                                        {{ \Carbon\Carbon::parse($donor->date_of_birth)->age }}</td>
+                                    <td class="px-2 py-1.5">
+                                        <div class="text-gray-900 truncate">{{ $donor->city }}</div>
+                                        <div class="text-xs text-gray-400 truncate">{{ $donor->state }}</div>
+                                    </td>
+                                    <td class="px-2 py-1.5">
+                                        <div class="text-gray-700">{{ $donor->created_at->format('M d, Y') }}</div>
+                                        <div class="text-xs text-gray-400">{{ $donor->created_at->diffForHumans() }}</div>
+                                    </td>
+                                    <td class="px-2 py-1.5">
+                                        @if ($donor->approval_status === 'approved')
+                                            <span
+                                                class="px-2 py-0.5 rounded-full text-xs font-semibold bg-green-100 text-green-700">✓
+                                                Approved</span>
+                                        @elseif($donor->approval_status === 'rejected')
+                                            <span
+                                                class="px-2 py-0.5 rounded-full text-xs font-semibold bg-red-100 text-red-700">✗
+                                                Rejected</span>
+                                        @else
+                                            <span
+                                                class="px-2 py-0.5 rounded-full text-xs font-semibold bg-yellow-100 text-yellow-700">⏳
+                                                Pending</span>
                                         @endif
-                                        @if ($donor->approval_status !== 'rejected')
-                                            <button onclick="showRejectModal({{ $donor->id }})"
-                                                class="p-1 bg-red-100 hover:bg-red-200 text-red-600 rounded"
-                                                title="Reject">
-                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd" />
+                                    </td>
+                                    <td class="px-2 py-1.5">
+                                        <div class="flex items-center gap-1">
+                                            <button onclick="showDonorDetails({{ $donor->id }})"
+                                                class="p-1 bg-blue-100 hover:bg-blue-200 text-blue-600 rounded cursor-pointer"
+                                                title="View">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                 </svg>
                                             </button>
-                                        @endif
-                                        @if ($donor->approval_status !== 'pending')
-                                            <form action="{{ route('admin.donors.reset', $donor->id) }}" method="POST"
-                                                class="inline" data-confirm="Reset to pending?">
-                                                @csrf
-                                                <button type="submit"
-                                                    class="p-1 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded"
-                                                    title="Reset">
+                                            @if ($donor->approval_status !== 'approved')
+                                                <form action="{{ route('admin.donors.approve', $donor->id) }}"
+                                                    method="POST" class="inline" data-confirm="Approve this donor?">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="p-1 bg-green-100 hover:bg-green-200 text-green-600 rounded cursor-pointer"
+                                                        title="Approve">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd"
+                                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                            @if ($donor->approval_status !== 'rejected')
+                                                <button onclick="showRejectModal({{ $donor->id }})"
+                                                    class="p-1 bg-red-100 hover:bg-red-200 text-red-600 rounded cursor-pointer"
+                                                    title="Reject">
                                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd"
-                                                            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
-                                            </form>
-                                        @endif
+                                            @endif
+                                            @if ($donor->approval_status !== 'pending')
+                                                <form action="{{ route('admin.donors.reset', $donor->id) }}"
+                                                    method="POST" class="inline" data-confirm="Reset to pending?">
+                                                    @csrf
+                                                    <button type="submit"
+                                                        class="p-1 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded cursor-pointer"
+                                                        title="Reset">
+                                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                                                clip-rule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </form>
+                                            @endif
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                    @if ($donors->hasPages())
+                        <div class="px-4 py-3 border-t border-gray-200">
+                            {{ $donors->links() }}
+                        </div>
+                    @endif
+                @else
+                    <div class="px-4 py-10 text-center">
+                        <div class="text-4xl mb-2">📋</div>
+                        <h3 class="text-lg font-bold text-gray-900">No Donors Yet</h3>
+                        <p class="text-sm text-gray-500">There are no donor records in the system.</p>
+                    </div>
+            @endif
+        </div>
+
+        <!-- Mobile Card View (visible only on mobile) -->
+        <div class="md:hidden">
+            @if ($donors->count() > 0)
+                <div class="divide-y divide-gray-200 bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+                    @foreach ($donors as $donor)
+                        <div class="mobile-donor-card p-4 hover:bg-gray-50 transition-colors"
+                            data-name="{{ strtolower($donor->first_name . ' ' . $donor->last_name) }}"
+                            data-email="{{ strtolower($donor->email) }}" data-blood="{{ $donor->blood_group }}"
+                            data-gender="{{ strtolower($donor->gender) }}">
+                            <!-- Donor Info -->
+                            <div class="mb-3">
+                                <div class="flex items-start justify-between mb-2">
+                                    <div>
+                                        <h3 class="font-bold text-gray-900 text-sm">{{ $donor->first_name }}
+                                            {{ $donor->last_name }}</h3>
+                                        <p class="text-xs text-gray-500">{{ $donor->email }}</p>
                                     </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    <span
+                                        class="inline-block px-2 py-1 text-xs font-bold rounded-full
+                                            @if ($donor->approval_status === 'approved') bg-green-100 text-green-800
+                                            @elseif ($donor->approval_status === 'rejected')
+                                                bg-red-100 text-red-800
+                                            @else
+                                                bg-yellow-100 text-yellow-800 @endif">
+                                        {{ ucfirst($donor->approval_status) }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Donor Details Grid -->
+                            <div class="grid grid-cols-2 gap-2 mb-3 text-xs">
+                                <div class="bg-gray-50 p-2 rounded">
+                                    <span class="text-gray-500 text-xs">Blood</span>
+                                    <p class="font-bold text-red-600">{{ $donor->blood_group ?? 'N/A' }}</p>
+                                </div>
+                                <div class="bg-gray-50 p-2 rounded">
+                                    <span class="text-gray-500 text-xs">Age</span>
+                                    <p class="font-bold text-gray-900">
+                                        {{ \Carbon\Carbon::parse($donor->date_of_birth)->age ?? 'N/A' }}</p>
+                                </div>
+                                <div class="bg-gray-50 p-2 rounded">
+                                    <span class="text-gray-500 text-xs">Gender</span>
+                                    <p class="font-bold text-gray-900">{{ ucfirst($donor->gender ?? 'N/A') }}</p>
+                                </div>
+                                <div class="bg-gray-50 p-2 rounded">
+                                    <span class="text-gray-500 text-xs">Phone</span>
+                                    <p class="font-bold text-gray-900 truncate">{{ substr($donor->phone ?? 'N/A', -4) }}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Contact & Location -->
+                            <div class="mb-3 text-xs">
+                                <p class="text-gray-600 mb-1">
+                                    <i class="fa-solid fa-map-pin text-blue-500 mr-1.5"></i>
+                                    {{ $donor->city ?? 'Not specified' }}
+                                </p>
+                                <p class="text-gray-600">
+                                    <i class="fa-solid fa-phone text-gray-500 mr-1.5"></i>
+                                    {{ $donor->phone ?? 'No phone' }}
+                                </p>
+                            </div>
+
+                            <!-- Date -->
+                            <div class="mb-3 text-xs text-gray-500 border-t pt-2">
+                                Applied: {{ $donor->created_at ? $donor->created_at->format('M d, Y') : 'N/A' }}
+                            </div>
+
+                            <!-- Mobile Actions (Stacked Buttons) -->
+                            <div class="space-y-2">
+                                <button onclick="showDonorDetails({{ $donor->id }})"
+                                    class="w-full px-2 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded transition-colors">
+                                    View Details
+                                </button>
+
+                                @if ($donor->approval_status === 'pending')
+                                    <div class="flex gap-2">
+                                        <form action="{{ route('admin.donors.approve', $donor->id) }}" method="POST"
+                                            class="flex-1" onsubmit="return confirm('Approve this donor?');">
+                                            @csrf
+                                            <button type="submit"
+                                                class="w-full px-2 py-1.5 text-xs font-medium text-white bg-green-600 hover:bg-green-700 rounded transition-colors">
+                                                Approve
+                                            </button>
+                                        </form>
+                                        <button onclick="showRejectModal({{ $donor->id }})"
+                                            class="flex-1 px-2 py-1.5 text-xs font-medium text-white bg-red-600 hover:bg-red-700 rounded transition-colors">
+                                            Reject
+                                        </button>
+                                    </div>
+                                @elseif ($donor->approval_status === 'approved')
+                                    <form action="{{ route('admin.donors.reset', $donor->id) }}" method="POST"
+                                        onsubmit="return confirm('Reset status to pending?');">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full px-2 py-1.5 text-xs font-medium text-white bg-gray-500 hover:bg-gray-600 rounded transition-colors">
+                                            Reset
+                                        </button>
+                                    </form>
+                                @endif
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
 
                 @if ($donors->hasPages())
-                    <div class="px-4 py-3 border-t border-gray-200">
+                    <div class="px-4 py-3 bg-gray-50 border-t border-gray-200">
                         {{ $donors->links() }}
                     </div>
                 @endif
             @else
-                <div class="px-4 py-10 text-center">
+                <div class="px-4 py-10 text-center bg-white rounded-xl shadow-md border border-gray-100">
                     <div class="text-4xl mb-2">📋</div>
                     <h3 class="text-lg font-bold text-gray-900">No Donors Yet</h3>
                     <p class="text-sm text-gray-500">There are no donor records in the system.</p>
                 </div>
             @endif
         </div>
+    </div>
     </div>
 
     <!-- Reject Donor Modal -->
@@ -345,21 +468,24 @@
             const bloodGroupFilter = document.getElementById('bloodGroupFilter');
             const genderFilter = document.getElementById('genderFilter');
             const donorRows = document.querySelectorAll('.donor-row');
+            const mobileCards = document.querySelectorAll('.mobile-donor-card');
             const selectAllCheckbox = document.getElementById('selectAll');
             const donorCheckboxes = document.querySelectorAll('.donor-checkbox');
             const bulkActionsDiv = document.getElementById('bulkActions');
             const selectedCountSpan = document.getElementById('selectedCount');
 
-            // Select All functionality
-            selectAllCheckbox.addEventListener('change', function() {
-                donorCheckboxes.forEach(checkbox => {
-                    const row = checkbox.closest('.donor-row');
-                    if (row.style.display !== 'none') {
-                        checkbox.checked = this.checked;
-                    }
+            // Select All functionality - only for desktop view
+            if (selectAllCheckbox) {
+                selectAllCheckbox.addEventListener('change', function() {
+                    donorCheckboxes.forEach(checkbox => {
+                        const row = checkbox.closest('.donor-row');
+                        if (row && row.style.display !== 'none') {
+                            checkbox.checked = this.checked;
+                        }
+                    });
+                    updateBulkActions();
                 });
-                updateBulkActions();
-            });
+            }
 
             // Individual checkbox change
             donorCheckboxes.forEach(checkbox => {
@@ -373,11 +499,15 @@
                 bulkActionsDiv.style.display = count > 0 ? 'flex' : 'none';
 
                 // Update select all checkbox state
-                const visibleCheckboxes = Array.from(donorCheckboxes).filter(cb => cb.closest('.donor-row').style.display !==
-                    'none');
+                const visibleCheckboxes = Array.from(donorCheckboxes).filter(cb => {
+                    const row = cb.closest('.donor-row');
+                    return row && row.style.display !== 'none';
+                });
                 const allVisibleChecked = visibleCheckboxes.length > 0 && visibleCheckboxes.every(cb => cb.checked);
-                selectAllCheckbox.checked = allVisibleChecked;
-                selectAllCheckbox.indeterminate = count > 0 && !allVisibleChecked;
+                if (selectAllCheckbox) {
+                    selectAllCheckbox.checked = allVisibleChecked;
+                    selectAllCheckbox.indeterminate = count > 0 && !allVisibleChecked;
+                }
             }
 
             function getSelectedIds() {
@@ -497,11 +627,12 @@
                 const selectedBlood = bloodGroupFilter.value;
                 const selectedGender = genderFilter.value;
 
+                // Filter desktop table rows
                 donorRows.forEach(row => {
-                    const name = row.dataset.name;
-                    const email = row.dataset.email;
-                    const blood = row.dataset.blood;
-                    const gender = row.dataset.gender;
+                    const name = row.dataset.name || '';
+                    const email = row.dataset.email || '';
+                    const blood = row.dataset.blood || '';
+                    const gender = row.dataset.gender || '';
 
                     const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm) || blood.toLowerCase()
                         .includes(searchTerm);
@@ -515,12 +646,31 @@
                     }
                 });
 
+                // Filter mobile cards
+                mobileCards.forEach(card => {
+                    const name = card.dataset.name || '';
+                    const email = card.dataset.email || '';
+                    const blood = card.dataset.blood || '';
+                    const gender = card.dataset.gender || '';
+
+                    const matchesSearch = name.includes(searchTerm) || email.includes(searchTerm) || blood.toLowerCase()
+                        .includes(searchTerm);
+                    const matchesBlood = !selectedBlood || blood === selectedBlood;
+                    const matchesGender = !selectedGender || gender === selectedGender;
+
+                    if (matchesSearch && matchesBlood && matchesGender) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+
                 updateBulkActions();
             }
 
-            searchInput.addEventListener('input', filterDonors);
-            bloodGroupFilter.addEventListener('change', filterDonors);
-            genderFilter.addEventListener('change', filterDonors);
+            if (searchInput) searchInput.addEventListener('input', filterDonors);
+            if (bloodGroupFilter) bloodGroupFilter.addEventListener('change', filterDonors);
+            if (genderFilter) genderFilter.addEventListener('change', filterDonors);
 
             // Donor details modal
             const donorsData = @json(App\Models\Donor::with('user')->latest()->get());

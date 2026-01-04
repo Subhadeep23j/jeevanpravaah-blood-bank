@@ -29,6 +29,10 @@ Route::post('/contact', [App\Http\Controllers\ContactController::class, 'submit'
 Route::get('/donate', [DonorController::class, 'showForm'])->name('donate');
 Route::post('/donors', [DonorController::class, 'store'])->middleware('auth')->name('donors.store');
 
+// Blood request routes
+Route::get('/request', [App\Http\Controllers\BloodRequestController::class, 'showForm'])->name('blood.request');
+Route::post('/request', [App\Http\Controllers\BloodRequestController::class, 'store'])->middleware('auth')->name('blood.request.store');
+
 // Authentication routes
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -73,6 +77,11 @@ Route::post('/admin-logout', [AdminLoginController::class, 'logout'])->name('adm
 Route::middleware('auth:admin')->group(function () {
     Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
     Route::get('/admin/donors', [AdminDashboardController::class, 'donors'])->name('admin.donors');
+    Route::get('/admin/requests', [AdminDashboardController::class, 'requests'])->name('admin.requests');
+    Route::get('/admin/blood-inventory', [AdminDashboardController::class, 'bloodInventory'])->name('admin.blood-inventory');
+
+    // Blood stock routes
+    Route::post('/admin/blood-stock/add', [AdminDashboardController::class, 'addBloodStock'])->name('admin.blood-stock.add');
 
     // Donor approval routes
     Route::post('/admin/donors/{id}/approve', [AdminDonorController::class, 'approve'])->name('admin.donors.approve');

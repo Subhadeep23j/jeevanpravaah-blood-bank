@@ -17,12 +17,14 @@ class DatabaseSeeder extends Seeder
         // Create test users
         $users = User::factory(10)->create();
 
-        // Create a specific test user
-        $testUser = User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-        ]);
+        // Create a specific test user (only if doesn't exist)
+        $testUser = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => bcrypt('password'),
+            ]
+        );
 
         // Blood groups for random selection
         $bloodGroups = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];

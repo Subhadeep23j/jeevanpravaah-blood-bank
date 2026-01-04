@@ -162,9 +162,9 @@
                                     <div class="relative w-full">
                                         <input type="password" name="password" id="password" required
                                             placeholder="Create a strong password"
-                                            class="w-full px-4 py-3.5 pr-12 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
+                                            class="w-full px-4 py-3.5 pr-14 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
                                         <button type="button" id="togglePassword"
-                                            class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer">
+                                            class="absolute inset-y-0 right-0 flex items-center justify-center w-12 h-full text-gray-400 hover:text-gray-600 focus:outline-none cursor-pointer transition-colors">
                                             <svg id="eyeIcon" class="w-5 h-5" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -66,8 +66,8 @@
                     Donors
                 </a>
 
-                <a href="#"
-                    class="flex items-center px-4 py-3 text-red-100 hover:bg-red-800 rounded-xl transition-colors duration-200">
+                <a href="{{ route('admin.blood-inventory') }}"
+                    class="flex items-center px-4 py-3 rounded-xl font-semibold shadow-lg {{ request()->routeIs('admin.blood-inventory') ? 'bg-red-800' : 'text-red-100 hover:bg-red-800 transition-colors duration-200' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
@@ -76,14 +76,14 @@
                     Blood Inventory
                 </a>
 
-                <a href="#"
-                    class="flex items-center px-4 py-3 text-red-100 hover:bg-red-800 rounded-xl transition-colors duration-200">
+                <a href="{{ route('admin.requests') }}"
+                    class="flex items-center px-4 py-3 rounded-xl font-semibold shadow-lg {{ request()->routeIs('admin.requests') ? 'bg-red-800' : 'text-red-100 hover:bg-red-800 transition-colors duration-200' }}">
                     <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
                         </path>
                     </svg>
-                    Requests
+                    Blood Requests
                 </a>
 
                 <a href="#"
