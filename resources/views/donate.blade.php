@@ -93,6 +93,91 @@
             color: #6b7280;
             border: 2px solid #d1d5db;
         }
+
+        .locked-form {
+            opacity: 0.6;
+            pointer-events: none;
+            background: repeating-linear-gradient(45deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(0, 0, 0, 0.03) 10px,
+                    rgba(0, 0, 0, 0.03) 20px);
+        }
+
+        .form-disabled-overlay {
+            position: relative;
+            z-index: 10;
+        }
+
+        input:disabled,
+        select:disabled,
+        textarea:disabled {
+            background-color: #f3f4f6;
+            color: #6b7280;
+            cursor: not-allowed;
+        }
+
+        input:disabled::placeholder {
+            color: #d1d5db;
+        }
+
+        /* BMI Calculation Styles */
+        .bmi-result-container {
+            margin-top: 1.5rem;
+            padding: 1.25rem;
+            border-radius: 0.75rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px solid #0ea5e9;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .bmi-result-container.hidden {
+            display: none;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bmi-status-underweight {
+            color: #3b82f6;
+        }
+
+        .bmi-status-normal {
+            color: #10b981;
+        }
+
+        .bmi-status-overweight {
+            color: #f59e0b;
+        }
+
+        .bmi-status-obese {
+            color: #ef4444;
+        }
+
+        .form-section {
+            background: #f9fafb;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-section-title {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #ef4444;
+            margin-bottom: 1rem;
+        }
     </style>
 @endpush
 
@@ -223,10 +308,52 @@
             </div>
 
             <div class="text-center">
-                <button onclick="startRegistration()"
-                    class="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer">
-                    I'm Eligible - Start Registration
-                </button>
+                @auth
+                    <button onclick="startRegistration()"
+                        class="px-8 py-4 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl cursor-pointer">
+                        I'm Eligible - Start Registration
+                    </button>
+                @else
+                    <div class="flex flex-col items-center justify-center py-16">
+                        <!-- Lock Icon Circle -->
+                        <div
+                            class="w-28 h-28 bg-red-100 rounded-full flex items-center justify-center mb-8 transform hover:scale-105 transition-transform">
+                            <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm6-10V7a3 3 0 00-3-3 3 3 0 00-3 3v4h6z" />
+                            </svg>
+                        </div>
+
+                        <!-- Heading -->
+                        <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Login Required</h3>
+
+                        <!-- Description -->
+                        <p class="text-gray-600 text-lg max-w-md mx-auto mb-10 leading-relaxed">
+                            Please login to your account to register as a blood donor. This helps us verify and process
+                            your registration quickly.
+                        </p>
+
+                        <!-- Buttons -->
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <a href="{{ route('login') }}"
+                                class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-red-500 text-white font-bold rounded-full hover:bg-red-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                                </svg>
+                                Login Now
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-red-500 text-red-500 font-bold rounded-full hover:bg-red-50 transition-all transform hover:scale-105">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                                </svg>
+                                Register
+                            </a>
+                        </div>
+                    </div>
+                @endauth
             </div>
         </div>
     </section>
@@ -259,96 +386,155 @@
 
                     <!-- Step 1: Personal Information -->
                     <div class="form-step active" id="step1">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Personal Information</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Personal Information</h3>
 
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="input-group">
-                                <input type="text" name="first_name" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">First Name</label>
+                        <!-- Section: Basic Details -->
+                        <div class="form-section">
+                            <div class="form-section-title">Basic Details</div>
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <!-- Full Name split into First Name and Last Name -->
+                                <div class="input-group">
+                                    <input type="text" name="first_name" required placeholder=" "
+                                        @auth value="{{ explode(' ', auth()->user()->name)[0] ?? '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">First Name</label>
+                                </div>
+
+                                <div class="input-group">
+                                    <input type="text" name="last_name" required placeholder=" "
+                                        @auth value="{{ array_slice(explode(' ', auth()->user()->name), 1) ? implode(' ', array_slice(explode(' ', auth()->user()->name), 1)) : '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">Last Name</label>
+                                </div>
+
+                                <!-- Email (from registration) -->
+                                <div class="input-group">
+                                    <input type="email" name="email" required placeholder=" "
+                                        @auth value="{{ auth()->user()->email ?? '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">Email Address</label>
+                                </div>
+
+                                <!-- Phone (from registration) -->
+                                <div class="input-group">
+                                    <input type="tel" name="phone" required placeholder=" "
+                                        @auth value="{{ auth()->user()->phone ?? '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">Phone Number</label>
+                                </div>
+
+                                {{-- <!-- Aadhar (from registration) -->
+                                <div class="input-group">
+                                    <input type="text" name="aadhar" placeholder=" "
+                                        @auth value="{{ auth()->user()->aadhar ?? '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">Aadhar Number</label>
+                                </div> --}}
+
+                                <!-- Date of Birth -->
+                                <div class="input-group md:col-span-2">
+                                    <input type="date" name="date_of_birth" required placeholder=" "
+                                        @auth value="{{ auth()->user()->date_of_birth ?? '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">Date of Birth</label>
+                                </div>
                             </div>
+                        </div>
 
-                            <div class="input-group">
-                                <input type="text" name="last_name" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Last Name</label>
-                            </div>
+                        <!-- Section: Address Details -->
+                        <div class="form-section">
+                            <div class="form-section-title">Address Details</div>
 
-                            <div class="input-group">
-                                <input type="email" name="email" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Email Address</label>
-                            </div>
+                            <div class="space-y-6">
+                                <!-- Address (from registration) -->
+                                <div class="input-group">
+                                    <input type="text" name="address" placeholder=" "
+                                        @auth value="{{ auth()->user()->address ?? '' }}" readonly @endauth
+                                        @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <label class="input-label">Street Address</label>
+                                </div>
 
-                            <div class="input-group">
-                                <input type="tel" name="phone" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Phone Number</label>
-                            </div>
+                                <div class="grid md:grid-cols-3 gap-6">
+                                    <!-- City (from registration) -->
+                                    <div class="input-group">
+                                        <input type="text" name="city" placeholder=" "
+                                            @auth value="{{ auth()->user()->city ?? '' }}" readonly @endauth
+                                            @guest disabled @endguest
+                                            class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                        <label class="input-label">City</label>
+                                    </div>
 
-                            <div class="input-group">
-                                <input type="date" name="date_of_birth" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Date of Birth</label>
-                            </div>
+                                    <!-- PIN Code (from registration) -->
+                                    <div class="input-group">
+                                        <input type="text" name="pin" placeholder=" "
+                                            @auth value="{{ auth()->user()->pin ?? '' }}" readonly @endauth
+                                            @guest disabled @endguest
+                                            class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                        <label class="input-label">PIN Code</label>
+                                    </div>
 
-                            <div>
-                                <label class="block text-gray-700 font-medium mb-2">Gender</label>
-                                <select name="gender" required
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                    <option value="">Select Gender</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                    <option value="other">Other</option>
-                                </select>
+                                    <!-- Additional empty slot for grid alignment -->
+                                    <div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Step 2: Blood Type & Medical Info -->
                     <div class="form-step" id="step2">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Medical Information</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Medical Information</h3>
 
-                        <div class="mb-8">
-                            <label class="block text-gray-700 font-medium mb-4 text-center">Select Your Blood Type</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Section: Blood Type -->
+                        <div class="form-section">
+                            <div class="form-section-title">Blood Type</div>
+
+                            <label class="block text-gray-700 font-medium mb-4">Select Your Blood Type</label>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 @guest locked-form @endguest">
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'A+')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'A+')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">A+</div>
                                     <div class="text-xs text-gray-600">Type A Positive</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'A-')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'A-')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">A-</div>
                                     <div class="text-xs text-gray-600">Type A Negative</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'B+')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'B+')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">B+</div>
                                     <div class="text-xs text-gray-600">Type B Positive</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'B-')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'B-')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">B-</div>
                                     <div class="text-xs text-gray-600">Type B Negative</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'O+')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'O+')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">O+</div>
                                     <div class="text-xs text-gray-600">Type O Positive</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'O-')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'O-')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">O-</div>
                                     <div class="text-xs text-gray-600">Universal Donor</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'AB+')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'AB+')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">AB+</div>
                                     <div class="text-xs text-gray-600">Universal Receiver</div>
                                 </div>
                                 <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    onclick="selectBloodType(this, 'AB-')">
+                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'AB-')" @endguest>
                                     <div class="text-2xl font-bold text-red-500 mb-1">AB-</div>
                                     <div class="text-xs text-gray-600">Type AB Negative</div>
                                 </div>
@@ -356,150 +542,204 @@
                             <input type="hidden" name="blood_group" id="selectedBloodType" required>
                         </div>
 
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="input-group">
-                                <input type="number" name="weight" required placeholder=" " min="45"
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Weight (kg)</label>
+                        <!-- Section: Physical Measurements & BMI -->
+                        <div class="form-section">
+                            <div class="form-section-title">Physical Measurements</div>
+
+                            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                                <div class="input-group">
+                                    <input type="number" name="weight" id="weightInput" required placeholder=" "
+                                        min="45" step="0.1" @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all"
+                                        oninput="calculateBMI()">
+                                    <label class="input-label">Weight (kg)</label>
+                                </div>
+
+                                <div class="input-group">
+                                    <input type="number" name="height" id="heightInput" required placeholder=" "
+                                        min="100" step="0.1" @guest disabled @endguest
+                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all"
+                                        oninput="calculateBMI()">
+                                    <label class="input-label">Height (cm)</label>
+                                </div>
                             </div>
 
-                            <div class="input-group">
-                                <input type="number" name="height" required placeholder=" " min="150"
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Height (cm)</label>
+                            <!-- BMI Result -->
+                            <div id="bmiResultContainer" class="bmi-result-container hidden">
+                                <div class="grid md:grid-cols-3 gap-4">
+                                    <div>
+                                        <p class="text-sm text-gray-600">Your BMI</p>
+                                        <p class="text-3xl font-bold" id="bmiValue">--</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Status</p>
+                                        <p class="text-xl font-bold" id="bmiStatus">--</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-600">Category</p>
+                                        <p class="text-sm" id="bmiCategory">--</p>
+                                    </div>
+                                </div>
+                                <div class="mt-4 pt-4 border-t border-sky-300">
+                                    <p class="text-sm text-gray-700" id="bmiRemark">--</p>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mt-6">
-                            <label class="block text-gray-700 font-medium mb-2">Any chronic medical conditions?</label>
-                            <textarea name="medical_conditions" rows="3"
-                                placeholder="Please list any medical conditions, medications, or allergies..."
-                                class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all"></textarea>
+                        <!-- Section: Medical Conditions -->
+                        <div class="form-section">
+                            <div class="form-section-title">Health Information</div>
+
+                            <label class="block text-gray-700 font-medium mb-3">Any chronic medical conditions?</label>
+                            <textarea name="medical_conditions" rows="4" @guest disabled @endguest
+                                placeholder="Please list any medical conditions, medications, or allergies... (Optional)"
+                                class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all resize-none"></textarea>
                         </div>
                     </div>
 
-                    <!-- Step 3: Location & Availability -->
+                    <!-- Step 3: Availability -->
                     <div class="form-step" id="step3">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Location & Availability</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Donation Availability</h3>
 
-                        <div class="grid md:grid-cols-2 gap-6 mb-6">
-                            <div class="input-group">
-                                <input type="text" name="address" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">Street Address</label>
-                            </div>
-
-                            <div class="input-group">
-                                <input type="text" name="city" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">City</label>
-                            </div>
-
-                            <div class="input-group">
-                                <input type="text" name="state" required placeholder=" "
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">State</label>
-                            </div>
-
-                            <div class="input-group">
-                                <input type="text" name="pincode" required placeholder=" " pattern="[0-9]{6}"
-                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <label class="input-label">PIN Code</label>
-                            </div>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-6 mb-8">
+                            <p class="text-sm text-gray-700">
+                                <span class="font-semibold">📍 Note:</span> You will donate blood at our blood donation
+                                center. We will contact you with the appointment details.
+                            </p>
                         </div>
 
-                        <div class="mb-6">
+                        <!-- Section: Availability -->
+                        <div class="form-section">
+                            <div class="form-section-title">Your Availability</div>
+
                             <label class="block text-gray-700 font-medium mb-4">When are you available to donate?</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                                <label class="flex items-center">
+                            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 @guest locked-form @endguest">
+                                <label
+                                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
                                     <input type="checkbox" name="availability[]" value="weekday_morning"
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
-                                    <span class="ml-2 text-sm">Weekday Morning</span>
+                                        @guest disabled @endguest class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
+                                    <span class="ml-2 text-sm font-medium">Weekday Morning</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label
+                                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
                                     <input type="checkbox" name="availability[]" value="weekday_evening"
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
-                                    <span class="ml-2 text-sm">Weekday Evening</span>
+                                        @guest disabled @endguest class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
+                                    <span class="ml-2 text-sm font-medium">Weekday Evening</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label
+                                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
                                     <input type="checkbox" name="availability[]" value="weekend_morning"
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
-                                    <span class="ml-2 text-sm">Weekend Morning</span>
+                                        @guest disabled @endguest class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
+                                    <span class="ml-2 text-sm font-medium">Weekend Morning</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label
+                                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
                                     <input type="checkbox" name="availability[]" value="weekend_evening"
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
-                                    <span class="ml-2 text-sm">Weekend Evening</span>
+                                        @guest disabled @endguest class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
+                                    <span class="ml-2 text-sm font-medium">Weekend Evening</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label
+                                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
                                     <input type="checkbox" name="availability[]" value="emergency"
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
-                                    <span class="ml-2 text-sm">Emergency Only</span>
+                                        @guest disabled @endguest class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
+                                    <span class="ml-2 text-sm font-medium">Emergency Only</span>
                                 </label>
-                                <label class="flex items-center">
+                                <label
+                                    class="flex items-center p-3 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
                                     <input type="checkbox" name="availability[]" value="anytime"
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
-                                    <span class="ml-2 text-sm">Anytime</span>
+                                        @guest disabled @endguest class="w-4 h-4 text-red-600 rounded focus:ring-red-500">
+                                    <span class="ml-2 text-sm font-medium">Anytime</span>
                                 </label>
                             </div>
-                        </div>
 
-                        <div>
-                            <label class="block text-gray-700 font-medium mb-2">Maximum travel distance (km)</label>
-                            <select name="travel_distance" required
-                                class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                <option value="">Select distance</option>
-                                <option value="5">Within 5 km</option>
-                                <option value="10">Within 10 km</option>
-                                <option value="20">Within 20 km</option>
-                                <option value="50">Within 50 km</option>
-                                <option value="unlimited">Any distance</option>
-                            </select>
+                            <div class="mt-6">
+                                <label class="block text-gray-700 font-medium mb-2">Maximum travel distance to our center
+                                    (km)</label>
+                                <select name="travel_distance" required @guest disabled @endguest
+                                    class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
+                                    <option value="">Select distance</option>
+                                    <option value="5">Within 5 km</option>
+                                    <option value="10">Within 10 km</option>
+                                    <option value="20">Within 20 km</option>
+                                    <option value="50">Within 50 km</option>
+                                    <option value="unlimited">Any distance</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Step 4: Consent & Confirmation -->
                     <div class="form-step" id="step4">
-                        <h3 class="text-2xl font-bold text-gray-800 mb-6 text-center">Consent & Agreement</h3>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Consent & Agreement</h3>
 
-                        <div class="bg-gray-50 rounded-2xl p-6 mb-6">
-                            <h4 class="font-bold text-gray-800 mb-4">Important Information</h4>
-                            <ul class="space-y-2 text-sm text-gray-600">
-                                <li>• All donated blood will be screened for infectious diseases</li>
-                                <li>• You will receive SMS notifications for donation requests</li>
-                                <li>• Your information will be kept confidential and secure</li>
-                                <li>• You can update your availability or withdraw at any time</li>
-                                <li>• Medical professionals will verify your eligibility before donation</li>
+                        <div class="bg-red-50 border-l-4 border-red-500 rounded-lg p-6 mb-8">
+                            <h4 class="font-bold text-gray-800 mb-4 flex items-center">
+                                <svg class="w-5 h-5 text-red-500 mr-2" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Important Information
+                            </h4>
+                            <ul class="space-y-2 text-sm text-gray-700">
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-3 font-bold">✓</span>
+                                    <span>All donated blood will be screened for infectious diseases</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-3 font-bold">✓</span>
+                                    <span>You will receive SMS notifications for donation requests</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-3 font-bold">✓</span>
+                                    <span>Your information will be kept confidential and secure</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-3 font-bold">✓</span>
+                                    <span>You can update your availability or withdraw at any time</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-red-500 mr-3 font-bold">✓</span>
+                                    <span>Medical professionals will verify your eligibility before donation</span>
+                                </li>
                             </ul>
                         </div>
 
-                        <div class="space-y-4">
-                            <label class="flex items-start">
-                                <input type="checkbox" name="consent_medical" required
-                                    class="w-4 h-4 text-red-600 rounded focus:ring-red-500 mt-1">
-                                <span class="ml-3 text-sm text-gray-700">
-                                    I consent to medical screening and confirm that all information provided is accurate to
-                                    the best of my knowledge.
-                                </span>
-                            </label>
+                        <div class="form-section">
+                            <div class="form-section-title">Agreements</div>
 
-                            <label class="flex items-start">
-                                <input type="checkbox" name="consent_contact" required
-                                    class="w-4 h-4 text-red-600 rounded focus:ring-red-500 mt-1">
-                                <span class="ml-3 text-sm text-gray-700">
-                                    I agree to be contacted via phone/SMS for blood donation requests within my specified
-                                    availability.
-                                </span>
-                            </label>
-
-                            <label class="flex items-start">
-                                <label class="flex items-start">
-                                    <input type="checkbox" name="consent_privacy" required
-                                        class="w-4 h-4 text-red-600 rounded focus:ring-red-500 mt-1">
+                            <div class="space-y-4">
+                                <label
+                                    class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
+                                    <input type="checkbox" name="consent_medical" required @guest disabled @endguest
+                                        class="w-5 h-5 text-red-600 rounded focus:ring-red-500 mt-0.5 flex-shrink-0">
                                     <span class="ml-3 text-sm text-gray-700">
-                                        I agree to JeevanPravaah's Privacy Policy and Terms of Service.
+                                        <span class="font-semibold">Medical Screening Consent:</span> I consent to medical
+                                        screening and confirm that all information provided is accurate to the best of my
+                                        knowledge.
                                     </span>
                                 </label>
+
+                                <label
+                                    class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
+                                    <input type="checkbox" name="consent_contact" required @guest disabled @endguest
+                                        class="w-5 h-5 text-red-600 rounded focus:ring-red-500 mt-0.5 flex-shrink-0">
+                                    <span class="ml-3 text-sm text-gray-700">
+                                        <span class="font-semibold">Contact Permission:</span> I agree to be contacted via
+                                        phone/SMS for blood donation requests within my specified availability.
+                                    </span>
+                                </label>
+
+                                <label
+                                    class="flex items-start p-4 border-2 border-gray-200 rounded-lg cursor-pointer hover:bg-red-50 transition-colors">
+                                    <input type="checkbox" name="consent_privacy" required @guest disabled @endguest
+                                        class="w-5 h-5 text-red-600 rounded focus:ring-red-500 mt-0.5 flex-shrink-0">
+                                    <span class="ml-3 text-sm text-gray-700">
+                                        <span class="font-semibold">Privacy & Terms:</span> I agree to JeevanPravaah's
+                                        Privacy Policy and Terms of Service.
+                                    </span>
+                                </label>
+                            </div>
                         </div>
                     </div>
 
@@ -511,15 +751,22 @@
                             Previous
                         </button>
                         <div class="flex-1"></div>
-                        <button type="button" id="nextBtn" onclick="nextStep()"
-                            class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 cursor-pointer">
-                            Next
-                        </button>
-                        <button type="submit" id="submitBtn"
-                            class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 cursor-pointer"
-                            style="display: none;">
-                            Register as Donor
-                        </button>
+                        @auth
+                            <button type="button" id="nextBtn" onclick="nextStep()"
+                                class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 cursor-pointer">
+                                Next
+                            </button>
+                            <button type="submit" id="submitBtn"
+                                class="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 cursor-pointer"
+                                style="display: none;">
+                                Register as Donor
+                            </button>
+                        @else
+                            <a href="{{ route('login') }}"
+                                class="px-8 py-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-full transition-all duration-300 transform hover:scale-105 inline-block">
+                                Login to Continue
+                            </a>
+                        @endauth
                     </div>
                 </form>
             </div>
@@ -531,11 +778,77 @@
             let currentStep = 1;
             const totalSteps = 4;
 
+            // BMI Calculation Function
+            function calculateBMI() {
+                const weightInput = document.getElementById('weightInput');
+                const heightInput = document.getElementById('heightInput');
+                const bmiResultContainer = document.getElementById('bmiResultContainer');
+                const bmiValue = document.getElementById('bmiValue');
+                const bmiStatus = document.getElementById('bmiStatus');
+                const bmiCategory = document.getElementById('bmiCategory');
+                const bmiRemark = document.getElementById('bmiRemark');
+
+                const weight = parseFloat(weightInput.value);
+                const height = parseFloat(heightInput.value);
+
+                if (weight && height && weight > 0 && height > 0) {
+                    // Convert height from cm to meters
+                    const heightInMeters = height / 100;
+
+                    // Calculate BMI: weight(kg) / height(m)^2
+                    const bmi = weight / (heightInMeters * heightInMeters);
+
+                    // Show result container
+                    bmiResultContainer.classList.remove('hidden');
+
+                    // Display BMI value
+                    bmiValue.textContent = bmi.toFixed(1);
+
+                    // Determine status and remarks
+                    let status = '';
+                    let statusClass = '';
+                    let remark = '';
+
+                    if (bmi < 18.5) {
+                        status = 'Underweight';
+                        statusClass = 'bmi-status-underweight';
+                        remark =
+                            '⚠️ Your BMI is below normal. You may need to gain weight to meet blood donation requirements. Consult a healthcare provider before donating.';
+                    } else if (bmi >= 18.5 && bmi < 25) {
+                        status = 'Normal';
+                        statusClass = 'bmi-status-normal';
+                        remark =
+                            '✓ Your BMI is in the healthy range. You are eligible to donate blood based on weight criteria.';
+                    } else if (bmi >= 25 && bmi < 30) {
+                        status = 'Overweight';
+                        statusClass = 'bmi-status-overweight';
+                        remark =
+                            '⚠️ Your BMI indicates overweight. While you may still donate, consult with a doctor to ensure you meet all health criteria.';
+                    } else {
+                        status = 'Obese';
+                        statusClass = 'bmi-status-obese';
+                        remark =
+                            '⚠️ Your BMI indicates obesity. Please consult a healthcare provider before blood donation to ensure it\'s safe for you.';
+                    }
+
+                    bmiStatus.textContent = status;
+                    bmiStatus.className = statusClass;
+                    bmiCategory.textContent = `BMI ${bmi.toFixed(1)} - ${status}`;
+                    bmiRemark.textContent = remark;
+                } else {
+                    bmiResultContainer.classList.add('hidden');
+                }
+            }
+
             function startRegistration() {
                 document.getElementById('registrationForm').style.display = 'block';
                 document.getElementById('registrationForm').scrollIntoView({
                     behavior: 'smooth'
                 });
+            }
+
+            function showLoginPrompt() {
+                alert('Please log in first to proceed with blood donor registration.');
             }
 
             function updateStepIndicators() {

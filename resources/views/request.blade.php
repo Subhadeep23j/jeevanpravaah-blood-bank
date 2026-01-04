@@ -78,24 +78,32 @@
     <!-- Blood Request Form Section -->
     <section class="py-16 bg-white">
         <div class="max-w-3xl mx-auto px-6">
-            <div class="form-container glass-card rounded-3xl p-8 md:p-10 relative">
-
+            @guest
                 <!-- Login Overlay for non-authenticated users -->
-                @guest
-                    <div class="login-overlay absolute inset-0 bg-white/80 rounded-3xl z-10 flex items-center justify-center">
+                <div class="glass-card rounded-3xl p-8 md:p-10 relative">
+                    <div class="login-overlay relative inset-0 bg-transparent rounded-3xl flex items-center justify-center">
                         <div class="text-center p-8">
-                            <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                                <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            <!-- Lock Icon Circle -->
+                            <div class="w-28 h-28 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-8 transform hover:scale-105 transition-transform">
+                                <svg class="w-16 h-16 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm6-10V7a3 3 0 00-3-3 3 3 0 00-3 3v4h6z" />
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-800 mb-3">Login Required</h3>
-                            <p class="text-gray-600 mb-6 max-w-sm mx-auto">Please login to your account to submit a blood
-                                request. This helps us verify and process your request quickly.</p>
-                            <div class="flex flex-col sm:flex-row gap-3 justify-center">
+
+                            <!-- Heading -->
+                            <h3 class="text-3xl md:text-4xl font-bold text-gray-800 mb-6">Login Required</h3>
+
+                            <!-- Description -->
+                            <p class="text-gray-600 text-lg max-w-md mx-auto mb-10 leading-relaxed">
+                                Please login to your account to submit a blood request. This helps us verify and process
+                                your request quickly.
+                            </p>
+
+                            <!-- Buttons -->
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
                                 <a href="{{ route('login') }}"
-                                    class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-red-500 text-white rounded-full font-semibold hover:bg-red-600 transition-all shadow-lg hover:shadow-xl">
+                                    class="inline-flex items-center justify-center gap-2 px-8 py-3 bg-red-500 text-white font-bold rounded-full hover:bg-red-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
@@ -103,7 +111,7 @@
                                     Login Now
                                 </a>
                                 <a href="{{ route('register') }}"
-                                    class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-red-500 border-2 border-red-500 rounded-full font-semibold hover:bg-red-50 transition-all">
+                                    class="inline-flex items-center justify-center gap-2 px-8 py-3 border-2 border-red-500 text-red-500 font-bold rounded-full hover:bg-red-50 transition-all transform hover:scale-105">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
@@ -113,62 +121,63 @@
                             </div>
                         </div>
                     </div>
-                @endguest
-
-                <div class="text-center mb-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Blood Request Form</h2>
-                    <p class="text-gray-600">Please provide accurate information for faster response</p>
                 </div>
-
-                <!-- Success Message -->
-                @if (session('success'))
-                    <div
-                        class="mb-6 p-4 bg-green-100 border border-green-300 text-green-700 rounded-xl flex items-center gap-3">
-                        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span>{{ session('success') }}</span>
+            @else
+                <div class="form-container glass-card rounded-3xl p-8 md:p-10 relative">
+                    <div class="text-center mb-8">
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-800 mb-2">Blood Request Form</h2>
+                        <p class="text-gray-600">Please provide accurate information for faster response</p>
                     </div>
-                @endif
 
-                <!-- Error Messages -->
-                @if ($errors->any())
-                    <div class="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-xl">
-                        <div class="flex items-center gap-2 mb-2">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Success Message -->
+                    @if (session('success'))
+                        <div
+                            class="mb-6 p-4 bg-green-100 border border-green-300 text-green-700 rounded-xl flex items-center gap-3">
+                            <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            <span class="font-semibold">Please fix the following errors:</span>
+                            <span>{{ session('success') }}</span>
                         </div>
-                        <ul class="list-disc list-inside space-y-1 text-sm">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
+                    @endif
 
-                <form action="{{ route('blood.request.store') }}" method="POST" enctype="multipart/form-data"
-                    class="space-y-6" onsubmit="return validateBloodStock(event)">
-                    @csrf
-
-                    <!-- Patient Name -->
-                    <div>
-                        <label for="patient_name" class="block text-sm font-semibold text-gray-700 mb-2">
-                            <span class="flex items-center gap-2">
-                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Error Messages -->
+                    @if ($errors->any())
+                        <div class="mb-6 p-4 bg-red-100 border border-red-300 text-red-700 rounded-xl">
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
-                                Patient Name <span class="text-red-500">*</span>
-                            </span>
-                        </label>
-                        <input type="text" id="patient_name" name="patient_name" value="{{ old('patient_name') }}"
-                            required
-                            class="input-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none text-gray-700"
-                            placeholder="Enter patient's full name">
+                                <span class="font-semibold">Please fix the following errors:</span>
+                            </div>
+                            <ul class="list-disc list-inside space-y-1 text-sm">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <form action="{{ route('blood.request.store') }}" method="POST" enctype="multipart/form-data"
+                        class="space-y-6" onsubmit="return validateBloodStock(event)">
+                        @csrf
+
+                        <!-- Patient Name -->
+                        <div>
+                            <label for="patient_name" class="block text-sm font-semibold text-gray-700 mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                    </svg>
+                                    Patient Name <span class="text-red-500">*</span>
+                                </span>
+                            </label>
+                            <input type="text" id="patient_name" name="patient_name" value="{{ old('patient_name') }}"
+                                required
+                                class="input-field w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:outline-none text-gray-700"
+                                placeholder="Enter patient's full name">
                     </div>
 
                     <!-- Phone Number -->
@@ -449,8 +458,9 @@
                             Submit Blood Request
                         </button>
                     </div>
-                </form>
-            </div>
+                    </form>
+                </div>
+            @endauth
 
             <!-- Additional Info -->
             <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">

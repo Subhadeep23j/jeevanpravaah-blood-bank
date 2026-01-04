@@ -643,7 +643,8 @@
                 try {
                     window.dispatchEvent(new CustomEvent('jp:loader:hidden'));
                 } catch (_) {
-                    /* no-op */ }
+                    /* no-op */
+                }
             }
 
             // Helper to hide the loader after ensuring a minimum display time
@@ -776,6 +777,78 @@
         });
         window.addEventListener('load', updateNavbarOnScroll);
         document.addEventListener('DOMContentLoaded', updateNavbarOnScroll);
+
+        // Show loader for AJAX/Fetch requests
+        (function() {
+            const loader = document.getElementById('pageLoader');
+            let activeRequests = 0;
+
+            // Track fetch requests
+            const originalFetch = window.fetch;
+            window.fetch = function(...args) {
+                activeRequests++;
+                if (loader && !loader.classList.contains('hidden')) {
+                    loader.classList.remove('hidden');
+                    document.body.classList.add('is-loading');
+                }
+                return originalFetch.apply(this, args)
+                    .then(response => {
+                        activeRequests--;
+                        if (activeRequests === 0) {
+                            setTimeout(() => {
+                                if (loader) loader.classList.add('hidden');
+                                document.body.classList.remove('is-loading');
+                            }, 300);
+                        }
+                        return response;
+                    })
+                    .catch(error => {
+                        activeRequests--;
+                        if (activeRequests === 0) {
+                            setTimeout(() => {
+                                if (loader) loader.classList.add('hidden');
+                                document.body.classList.remove('is-loading');
+                            }, 300);
+                        }
+                        throw error;
+                    });
+            };
+
+            // Track axios requests if available
+            if (typeof axios !== 'undefined') {
+                axios.interceptors.request.use(config => {
+                    activeRequests++;
+                    if (loader) {
+                        loader.classList.remove('hidden');
+                        document.body.classList.add('is-loading');
+                    }
+                    return config;
+                });
+
+                axios.interceptors.response.use(
+                    response => {
+                        activeRequests--;
+                        if (activeRequests === 0) {
+                            setTimeout(() => {
+                                if (loader) loader.classList.add('hidden');
+                                document.body.classList.remove('is-loading');
+                            }, 300);
+                        }
+                        return response;
+                    },
+                    error => {
+                        activeRequests--;
+                        if (activeRequests === 0) {
+                            setTimeout(() => {
+                                if (loader) loader.classList.add('hidden');
+                                document.body.classList.remove('is-loading');
+                            }, 300);
+                        }
+                        return Promise.reject(error);
+                    }
+                );
+            }
+        })();
 
         // Mobile menu toggle functionality
         document.addEventListener('DOMContentLoaded', function() {

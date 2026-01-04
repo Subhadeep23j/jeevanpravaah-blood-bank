@@ -243,7 +243,8 @@
                 try {
                     window.dispatchEvent(new CustomEvent('jp:loader:hidden'));
                 } catch (_) {
-                    /* no-op */ }
+                    /* no-op */
+                }
             }
 
             function hideLoaderAfter(minDelay, startedAt) {
@@ -284,6 +285,83 @@
                     }
                 }
             });
+        })();
+
+        // Track AJAX requests and show loader during data fetching
+        (function() {
+            const loader = document.getElementById('pageLoader');
+            let activeRequests = 0;
+
+            // Wrap the native fetch function
+            const originalFetch = window.fetch;
+            window.fetch = function(...args) {
+                if (loader) {
+                    activeRequests++;
+                    loader.classList.remove('hidden');
+                }
+
+                return originalFetch.apply(this, args)
+                    .then(response => {
+                        activeRequests--;
+                        if (activeRequests === 0 && loader) {
+                            setTimeout(() => {
+                                if (activeRequests === 0 && loader) {
+                                    loader.classList.add('hidden');
+                                }
+                            }, 300);
+                        }
+                        return response;
+                    })
+                    .catch(error => {
+                        activeRequests--;
+                        if (activeRequests === 0 && loader) {
+                            setTimeout(() => {
+                                if (activeRequests === 0 && loader) {
+                                    loader.classList.add('hidden');
+                                }
+                            }, 300);
+                        }
+                        return Promise.reject(error);
+                    });
+            };
+
+            // Setup Axios interceptors if available
+            if (window.axios) {
+                window.axios.interceptors.request.use(function(config) {
+                    if (loader) {
+                        activeRequests++;
+                        loader.classList.remove('hidden');
+                    }
+                    return config;
+                }, function(error) {
+                    return Promise.reject(error);
+                });
+
+                window.axios.interceptors.response.use(
+                    function(response) {
+                        activeRequests--;
+                        if (activeRequests === 0 && loader) {
+                            setTimeout(() => {
+                                if (activeRequests === 0 && loader) {
+                                    loader.classList.add('hidden');
+                                }
+                            }, 300);
+                        }
+                        return response;
+                    },
+                    function(error) {
+                        activeRequests--;
+                        if (activeRequests === 0 && loader) {
+                            setTimeout(() => {
+                                if (activeRequests === 0 && loader) {
+                                    loader.classList.add('hidden');
+                                }
+                            }, 300);
+                        }
+                        return Promise.reject(error);
+                    }
+                );
+            }
         })();
 
         // Mobile menu toggle
