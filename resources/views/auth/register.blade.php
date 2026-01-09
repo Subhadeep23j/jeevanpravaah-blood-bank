@@ -105,6 +105,42 @@
                                         placeholder="XXXX XXXX XXXX"
                                         class="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
                                 </div>
+
+                                <!-- Date of Birth -->
+                                <div>
+                                    <label for="date_of_birth" class="block text-sm font-semibold text-gray-700 mb-2">Date
+                                        of Birth</label>
+                                    <input type="date" name="date_of_birth" id="date_of_birth"
+                                        value="{{ old('date_of_birth') }}" required
+                                        class="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
+                                </div>
+
+                                <!-- Gender -->
+                                <div>
+                                    <label for="gender"
+                                        class="block text-sm font-semibold text-gray-700 mb-2">Gender</label>
+                                    <div class="relative">
+                                        <select name="gender" id="gender" required
+                                            class="w-full px-4 py-3.5 pr-10 border-2 border-gray-200 rounded-xl text-gray-900 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all appearance-none bg-white cursor-pointer">
+                                            <option value="">Select Gender</option>
+                                            <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>♂ Male
+                                            </option>
+                                            <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>♀
+                                                Female
+                                            </option>
+                                            <option value="other" {{ old('gender') === 'other' ? 'selected' : '' }}>⚧
+                                                Other
+                                            </option>
+                                        </select>
+                                        {{-- <div
+                                            class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                                            </svg>
+                                        </div> --}}
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -130,8 +166,8 @@
                                 <div>
                                     <label for="city"
                                         class="block text-sm font-semibold text-gray-700 mb-2">City</label>
-                                    <input type="text" name="city" id="city" value="{{ old('city') }}" required
-                                        placeholder="Mumbai"
+                                    <input type="text" name="city" id="city" value="{{ old('city') }}"
+                                        required placeholder="Mumbai"
                                         class="w-full px-4 py-3.5 border-2 border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-100 transition-all" />
                                 </div>
 
@@ -293,9 +329,15 @@
                             </label>
 
                             <button type="submit"
-                                class="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-[1.02] transition-all duration-200 cursor-pointer">
+                                class="group relative w-full bg-red-600 hover:bg-white text-white hover:text-red-600 font-bold py-4 rounded-xl shadow-lg hover:shadow-2xl hover:shadow-red-500/50 hover:translate-y-1 transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 border-2 border-red-600">
                                 Create Account
+                                <svg class="w-5 h-5 transform -translate-x-2 group-hover:translate-x-0 transition-transform duration-300"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
                             </button>
+
                         </div>
 
                         <!-- Login Link -->

@@ -31,6 +31,8 @@ class User extends Authenticatable
         'password',
         'donations_count',
         'email_verified_at',
+        'gender',
+        'date_of_birth',
     ];
 
     /**
