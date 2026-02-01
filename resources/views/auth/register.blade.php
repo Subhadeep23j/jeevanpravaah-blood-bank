@@ -243,8 +243,7 @@
                                     </div>
                                     <!-- Password Match Indicator -->
                                     <div id="passwordMatchIndicator" class="mt-2 hidden">
-                                        <div id="passwordMatch"
-                                            class="flex items-center gap-2 text-sm text-green-600 hidden">
+                                        <div id="passwordMatch" class="flex items-center gap-2 text-sm text-green-600">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -252,8 +251,7 @@
                                             </svg>
                                             Passwords match
                                         </div>
-                                        <div id="passwordNoMatch"
-                                            class="flex items-center gap-2 text-sm text-red-600 hidden">
+                                        <div id="passwordNoMatch" class="flex items-center gap-2 text-sm text-red-600">
                                             <svg class="w-4 h-4" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

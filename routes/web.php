@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\DonorController;
+use App\Http\Controllers\ForgotPasswordController;
 
 Route::get('/test', function () {
     return 'Laravel OK';
@@ -44,6 +45,15 @@ Route::post('register', [OtpController::class, 'sendOtp'])->name('register.send-
 Route::get('verify-otp', [OtpController::class, 'showVerifyForm'])->name('otp.verify.form');
 Route::post('verify-otp', [OtpController::class, 'verifyOtp'])->name('otp.verify');
 Route::post('resend-otp', [OtpController::class, 'resendOtp'])->name('otp.resend');
+
+// Forgot Password routes
+Route::get('forgot-password', [ForgotPasswordController::class, 'showForgotForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetOtp'])->name('password.email');
+Route::get('forgot-password/verify-otp', [ForgotPasswordController::class, 'showVerifyOtpForm'])->name('password.verify.otp.form');
+Route::post('forgot-password/verify-otp', [ForgotPasswordController::class, 'verifyOtp'])->name('password.verify.otp');
+Route::post('forgot-password/resend-otp', [ForgotPasswordController::class, 'resendOtp'])->name('password.resend.otp');
+Route::get('reset-password', [ForgotPasswordController::class, 'showResetForm'])->name('password.reset.form');
+Route::post('reset-password', [ForgotPasswordController::class, 'resetPassword'])->name('password.update');
 
 // Profile routes (protected by auth middleware)
 Route::middleware('auth')->group(function () {
@@ -82,6 +92,9 @@ Route::middleware('auth:admin')->group(function () {
 
     // Blood stock routes
     Route::post('/admin/blood-stock/add', [AdminDashboardController::class, 'addBloodStock'])->name('admin.blood-stock.add');
+
+    // Blood request status routes
+    Route::post('/admin/requests/{id}/update-status', [AdminDashboardController::class, 'updateRequestStatus'])->name('admin.requests.update-status');
 
     // Donor approval routes
     Route::post('/admin/donors/{id}/approve', [AdminDonorController::class, 'approve'])->name('admin.donors.approve');

@@ -61,7 +61,7 @@
                             class="w-full sm:w-64 pl-10 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent">
                     </div>
                     <select id="bloodGroupFilter"
-                        class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500">
+                        class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 cursor-pointer">
                         <option value="">All Blood</option>
                         <option value="A+">A+</option>
                         <option value="A-">A-</option>
@@ -73,7 +73,7 @@
                         <option value="O-">O-</option>
                     </select>
                     <select id="genderFilter"
-                        class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500">
+                        class="px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 cursor-pointer">
                         <option value="">All Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>

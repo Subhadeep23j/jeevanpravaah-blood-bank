@@ -55,27 +55,29 @@
                         class="absolute right-0 mt-2 w-56 rounded-xl bg-white shadow-xl border border-gray-100 py-2 z-50">
 
                         <!-- User Info -->
-                        <div class="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
-                            <!-- User Profile Image -->
-                            <div
-                                class="w-10 h-10 rounded-full bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center overflow-hidden border-2 border-red-200">
-                                @if (Auth::user()->profile_image_path)
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
-                                        alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
-                                @else
-                                    <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
-                                        class="w-6 h-6 text-red-500">
-                                @endif
+                        <a href="{{ route('profile.show') }}">
+                            <div class="px-4 py-3 border-b border-gray-100 flex items-center gap-3">
+                                <!-- User Profile Image -->
+                                <div
+                                    class="w-10 h-10 rounded-full bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center overflow-hidden border-2 border-red-200">
+                                    @if (Auth::user()->profile_image_path)
+                                        <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
+                                            alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+                                    @else
+                                        <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
+                                            class="w-6 h-6 text-red-500">
+                                    @endif
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-semibold text-gray-900 truncate">
+                                        {{ Auth::user()->name ?? 'User' }}</p>
+                                    <p class="text-xs text-gray-500 truncate">
+                                        {{ Auth::user()->email ?? 'user@example.com' }}</p>
+                                </div>
                             </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-semibold text-gray-900 truncate">
-                                    {{ Auth::user()->name ?? 'User' }}</p>
-                                <p class="text-xs text-gray-500 truncate">
-                                    {{ Auth::user()->email ?? 'user@example.com' }}</p>
-                            </div>
-                        </div>
+                        </a>
 
-                        <!-- Menu Items -->
+                        {{-- <!-- Menu Items -->
                         <a href="{{ route('profile.show') }}"
                             class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +85,7 @@
                                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                             My Profile
-                        </a>
+                        </a> --}}
                         <a href="{{ route('donation.history') }}"
                             class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -135,24 +137,28 @@
         <div id="mobile-menu" class="md:hidden mt-4 border-t border-gray-200">
             <nav class="flex flex-col space-y-2 md:space-y-3">
                 <!-- User Info Mobile -->
-                <div
-                    class="px-3 py-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg mb-2 flex items-center gap-3">
-                    <!-- User Profile Image -->
+                <a href="{{ route('profile.show') }}">
                     <div
-                        class="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-red-200 shadow-sm flex-shrink-0">
-                        @if (Auth::user()->profile_image_path)
-                            <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
-                                alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
-                        @else
-                            <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
-                                class="w-7 h-7 text-red-500">
-                        @endif
+                        class="px-3 py-3 bg-gradient-to-r from-red-50 to-orange-50 rounded-lg mb-2 flex items-center gap-3">
+                        <!-- User Profile Image -->
+                        <div
+                            class="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-red-200 shadow-sm flex-shrink-0">
+                            @if (Auth::user()->profile_image_path)
+                                <img src="{{ asset('storage/' . Auth::user()->profile_image_path) }}"
+                                    alt="{{ Auth::user()->name }}" class="w-full h-full object-cover">
+                            @else
+                                <img src="{{ asset('assets/profile.svg') }}" alt="Default Profile"
+                                    class="w-7 h-7 text-red-500">
+                            @endif
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name ?? 'User' }}
+                            </p>
+                            <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email ?? 'user@example.com' }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="flex-1 min-w-0">
-                        <p class="text-sm font-semibold text-gray-900 truncate">{{ Auth::user()->name ?? 'User' }}</p>
-                        <p class="text-xs text-gray-500 truncate">{{ Auth::user()->email ?? 'user@example.com' }}</p>
-                    </div>
-                </div>
+                </a>
 
                 <a href="/"
                     class="nav-link {{ request()->is('/') ? 'text-red-500' : 'text-gray-700 hover:text-red-500' }} font-medium transition-all px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
@@ -199,14 +205,14 @@
                 <div class="border-t border-gray-200 my-2"></div>
 
                 <!-- Profile Links -->
-                <a href="{{ route('profile.show') }}"
+                {{-- <a href="{{ route('profile.show') }}"
                     class="nav-link text-gray-700 hover:text-red-500 font-medium transition-all px-3 py-2 rounded-lg hover:bg-gray-50 flex items-center gap-2">
                     <svg class="w-5 h-5 nav-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                     My Profile
-                </a>
+                </a> --}}
                 <!-- Logout Button Mobile -->
                 <form action="{{ route('logout') }}" method="POST" class="m-2">
                     @csrf

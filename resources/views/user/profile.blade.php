@@ -105,26 +105,31 @@
                 <div class="lg:col-span-8" data-aos="fade-left" x-data="{ tab: 'profile' }">
                     <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
                         <div class="border-b border-gray-200">
-                            <nav class="flex -mb-px">
+                            <nav class="flex -mb-px" aria-label="Tabs">
                                 <button @click="tab = 'profile'"
                                     :class="{ 'border-red-500 text-red-600': tab === 'profile', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'profile' }"
-                                    class="w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none">
-                                    Edit Profile
+                                    class="flex-1 py-3 sm:py-4 px-1 sm:px-3 text-center border-b-2 font-medium text-xs sm:text-sm transition-colors duration-200 focus:outline-none cursor-pointer">
+                                    Profile
                                 </button>
                                 <button @click="tab = 'security'"
                                     :class="{ 'border-red-500 text-red-600': tab === 'security', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'security' }"
-                                    class="w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none">
+                                    class="flex-1 py-3 sm:py-4 px-1 sm:px-3 text-center border-b-2 font-medium text-xs sm:text-sm transition-colors duration-200 focus:outline-none cursor-pointer">
                                     Security
                                 </button>
                                 <button @click="tab = 'donations'"
                                     :class="{ 'border-red-500 text-red-600': tab === 'donations', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'donations' }"
-                                    class="w-1/3 py-4 px-1 text-center border-b-2 font-medium text-sm transition-colors duration-200 focus:outline-none">
-                                    Donation History
+                                    class="flex-1 py-3 sm:py-4 px-1 sm:px-3 text-center border-b-2 font-medium text-xs sm:text-sm transition-colors duration-200 focus:outline-none cursor-pointer">
+                                    Donations
+                                </button>
+                                <button @click="tab = 'requests'"
+                                    :class="{ 'border-red-500 text-red-600': tab === 'requests', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300': tab !== 'requests' }"
+                                    class="flex-1 py-3 sm:py-4 px-1 sm:px-3 text-center border-b-2 font-medium text-xs sm:text-sm transition-colors duration-200 focus:outline-none cursor-pointer">
+                                    Requests
                                 </button>
                             </nav>
                         </div>
 
-                        <div class="p-6 sm:p-8">
+                        <div class="p-4 sm:p-6 md:p-8">
                             <div x-show="tab === 'profile'" x-transition>
                                 <form action="{{ route('profile.update') }}" method="POST">
                                     @csrf
@@ -439,6 +444,215 @@
                                                     d="M12 4v16m8-8H4" />
                                             </svg>
                                             Register Your First Donation
+                                        </a>
+                                    </div>
+                                @endif
+                            </div>
+
+                            {{-- Blood Requests Tab --}}
+                            <div x-show="tab === 'requests'" x-transition style="display: none;">
+                                @php
+                                    $bloodRequests = App\Models\BloodRequest::where('user_id', Auth::id())
+                                        ->latest()
+                                        ->get();
+
+                                    $totalRequests = $bloodRequests->count();
+                                    $pendingRequests = $bloodRequests->where('status', 'pending')->count();
+                                    $approvedRequests = $bloodRequests->where('status', 'approved')->count();
+                                    $fulfilledRequests = $bloodRequests->where('status', 'fulfilled')->count();
+                                    $cancelledRequests = $bloodRequests->where('status', 'cancelled')->count();
+                                @endphp
+
+                                <!-- Statistics Cards -->
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                                    <div
+                                        class="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
+                                        <p class="text-xs text-blue-600 font-medium mb-1">Total</p>
+                                        <p class="text-2xl font-bold text-blue-700">{{ $totalRequests }}</p>
+                                    </div>
+                                    <div
+                                        class="bg-gradient-to-br from-yellow-50 to-yellow-100 p-4 rounded-lg border border-yellow-200">
+                                        <p class="text-xs text-yellow-600 font-medium mb-1">Pending</p>
+                                        <p class="text-2xl font-bold text-yellow-700">{{ $pendingRequests }}</p>
+                                    </div>
+                                    <div
+                                        class="bg-gradient-to-br from-green-50 to-green-100 p-4 rounded-lg border border-green-200">
+                                        <p class="text-xs text-green-600 font-medium mb-1">Approved</p>
+                                        <p class="text-2xl font-bold text-green-700">{{ $approvedRequests }}</p>
+                                    </div>
+                                    <div
+                                        class="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-lg border border-purple-200">
+                                        <p class="text-xs text-purple-600 font-medium mb-1">Fulfilled</p>
+                                        <p class="text-2xl font-bold text-purple-700">{{ $fulfilledRequests }}</p>
+                                    </div>
+                                </div>
+
+                                @if ($totalRequests > 0)
+                                    <div class="space-y-4 max-h-[600px] overflow-y-auto pr-2">
+                                        @foreach ($bloodRequests as $request)
+                                            <div
+                                                class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
+                                                <div class="flex items-start justify-between mb-3">
+                                                    <div class="flex items-center gap-3">
+                                                        <div
+                                                            class="w-12 h-12 bg-gradient-to-br from-red-500 to-red-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                                            {{ $request->blood_type }}
+                                                        </div>
+                                                        <div>
+                                                            <h4 class="font-bold text-gray-900">
+                                                                {{ $request->patient_name }}</h4>
+                                                            <p class="text-xs text-gray-500">
+                                                                {{ $request->created_at->format('M d, Y - h:i A') }}</p>
+                                                        </div>
+                                                    </div>
+                                                    @if ($request->status === 'fulfilled')
+                                                        <span
+                                                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800">
+                                                            <svg class="w-3 h-3 mr-1" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            Fulfilled
+                                                        </span>
+                                                    @elseif($request->status === 'approved')
+                                                        <span
+                                                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800">
+                                                            <svg class="w-3 h-3 mr-1" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            Approved
+                                                        </span>
+                                                    @elseif($request->status === 'cancelled')
+                                                        <span
+                                                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-red-100 text-red-800">
+                                                            <svg class="w-3 h-3 mr-1" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            Cancelled
+                                                        </span>
+                                                    @else
+                                                        <span
+                                                            class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-800">
+                                                            <svg class="w-3 h-3 mr-1" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd"
+                                                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                                                    clip-rule="evenodd" />
+                                                            </svg>
+                                                            Pending
+                                                        </span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="grid grid-cols-2 gap-3 text-sm mb-3">
+                                                    <div class="flex items-center text-gray-600">
+                                                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                                        </svg>
+                                                        {{ $request->hospital_name }}
+                                                    </div>
+                                                    <div class="flex items-center text-gray-600">
+                                                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                                        </svg>
+                                                        {{ $request->phone }}
+                                                    </div>
+                                                    <div class="flex items-center text-gray-600">
+                                                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        </svg>
+                                                        {{ Str::limit($request->address, 30) }}
+                                                    </div>
+                                                    <div class="flex items-center text-gray-600">
+                                                        <svg class="w-4 h-4 mr-2 text-gray-400" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                                        </svg>
+                                                        {{ $request->units_required }} units
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                                    <div class="flex items-center">
+                                                        <span
+                                                            class="text-xs font-medium text-gray-500 mr-2">Urgency:</span>
+                                                        @if ($request->urgency === 'critical')
+                                                            <span
+                                                                class="px-2 py-1 rounded-full text-xs font-bold bg-red-100 text-red-700">Critical</span>
+                                                        @elseif($request->urgency === 'urgent')
+                                                            <span
+                                                                class="px-2 py-1 rounded-full text-xs font-bold bg-orange-100 text-orange-700">Urgent</span>
+                                                        @else
+                                                            <span
+                                                                class="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-700">Normal</span>
+                                                        @endif
+                                                    </div>
+                                                    @if ($request->doctor_prescription)
+                                                        <a href="{{ asset('storage/' . $request->doctor_prescription) }}"
+                                                            target="_blank"
+                                                            class="inline-flex items-center text-xs text-blue-600 hover:text-blue-800 font-medium">
+                                                            <svg class="w-4 h-4 mr-1" fill="none"
+                                                                stroke="currentColor" viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
+                                                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                            </svg>
+                                                            View Prescription
+                                                        </a>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+
+                                    <div class="mt-6 pt-4 border-t border-gray-200">
+                                        <a href="{{ route('blood.request') }}"
+                                            class="block text-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors">
+                                            Request More Blood
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="text-center py-12">
+                                        <svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                        </svg>
+                                        <h3 class="text-lg font-bold text-gray-900 mb-2">No Blood Requests</h3>
+                                        <p class="text-gray-600 mb-4">You haven't made any blood requests yet.</p>
+                                        <a href="{{ route('blood.request') }}"
+                                            class="inline-flex items-center px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors">
+                                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 4v16m8-8H4" />
+                                            </svg>
+                                            Request Blood Now
                                         </a>
                                     </div>
                                 @endif

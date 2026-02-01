@@ -97,7 +97,8 @@
                                 class="w-4 h-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
                             <span class="ml-2 text-sm text-gray-600">Remember me</span>
                         </label>
-                        <a href="#" class="text-sm font-semibold text-red-600 hover:text-red-700 transition-colors">
+                        <a href="{{ route('password.request') }}"
+                            class="text-sm font-semibold text-red-600 hover:text-red-700 transition-colors">
                             Forgot password?
                         </a>
                     </div>

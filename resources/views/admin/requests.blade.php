@@ -123,7 +123,7 @@
                                 <td class="py-4 px-4">
                                     <div class="flex flex-col">
                                         <p class="font-semibold text-gray-900">{{ $request->patient_name }}</p>
-                                        <p class="text-xs text-gray-500">by {{ $request->user->first_name ?? 'N/A' }}</p>
+                                        <p class="text-xs text-gray-500">by {{ $request->user->name ?? 'N/A' }}</p>
                                     </div>
                                 </td>
                                 <td class="py-4 px-4">
@@ -156,7 +156,7 @@
                                     {{ $request->created_at->format('M d, Y') }}
                                 </td>
                                 <td class="py-4 px-4 text-center">
-                                    <button class="text-blue-600 hover:text-blue-800 font-semibold text-sm"
+                                    <button class="text-blue-600 hover:text-blue-800 font-semibold text-sm cursor-pointer"
                                         onclick="openRequestModal({{ $request->id }})">View</button>
                                 </td>
                             </tr>
@@ -186,9 +186,9 @@
         </div>
     </div>
 
-    <div id="requestModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 items-center justify-center p-4"
-        style="display: none;">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div id="requestModal" class="hidden fixed inset-0 z-50 items-center justify-center p-4"
+        style="display: none; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(2px);">
+        <div class="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-gray-200">
             <div class="sticky top-0 bg-white border-b border-gray-200 p-4 flex items-center justify-between">
                 <h3 class="text-xl font-bold text-gray-900">Request Details</h3>
                 <button onclick="closeRequestModal()" class="text-gray-500 hover:text-gray-700">
@@ -203,6 +203,37 @@
                 <div id="modalContent">
                     {{-- Content will be loaded dynamically --}}
                 </div>
+
+                {{-- Status Update Form --}}
+                <div id="statusUpdateSection" class="border-t border-gray-200 pt-4 mt-4">
+                    <h4 class="text-sm font-semibold text-gray-700 mb-3">Update Status</h4>
+                    <div id="statusFormContainer">
+                        <form id="statusUpdateForm" method="POST" class="flex items-center gap-3">
+                            @csrf
+                            <select name="status" id="statusSelect"
+                                class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="fulfilled">Fulfilled</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                            <button type="submit"
+                                class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition-colors cursor-pointer">
+                                Update Status
+                            </button>
+                        </form>
+                    </div>
+                    <div id="statusLockedMessage" class="hidden">
+                        <p class="text-gray-500 text-sm bg-gray-100 px-4 py-3 rounded-lg">
+                            <svg class="w-5 h-5 inline-block mr-2 text-gray-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            Status has already been updated and cannot be changed.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -216,14 +247,15 @@
                         id: {{ $request->id }},
                         patient_name: '{{ $request->patient_name }}',
                         phone: '{{ $request->phone }}',
-                        address: '{{ $request->address }}',
-                        hospital_name: '{{ $request->hospital_name }}',
+                        address: '{{ addslashes($request->address) }}',
+                        hospital_name: '{{ addslashes($request->hospital_name) }}',
                         blood_type: '{{ $request->blood_type }}',
-                        doctor_prescription: '{{ $request->doctor_prescription }}',
+                        doctor_prescription: '{{ $request->doctor_prescription ?? '' }}',
+                        prescription_url: '{{ $request->doctor_prescription && $request->doctor_prescription !== '' ? asset('storage/' . $request->doctor_prescription) : '' }}',
                         units_required: {{ $request->units_required }},
                         urgency: '{{ $request->urgency }}',
                         status: '{{ $request->status }}',
-                        user_name: '{{ $request->user->first_name ?? 'N/A' }}',
+                        user_name: '{{ $request->user->name ?? 'N/A' }}',
                         date: '{{ $request->created_at->format('M d, Y H:i A') }}'
                     },
                 @endforeach
@@ -233,6 +265,51 @@
                 const request = requestsData[id];
                 if (!request) return;
 
+                // Update form action URL
+                document.getElementById('statusUpdateForm').action = `/admin/requests/${id}/update-status`;
+                document.getElementById('statusSelect').value = request.status;
+
+                // Show/hide status form based on current status
+                if (request.status === 'pending') {
+                    document.getElementById('statusFormContainer').classList.remove('hidden');
+                    document.getElementById('statusLockedMessage').classList.add('hidden');
+                } else {
+                    document.getElementById('statusFormContainer').classList.add('hidden');
+                    document.getElementById('statusLockedMessage').classList.remove('hidden');
+                }
+
+                const prescriptionHtml = request.prescription_url && request.prescription_url.trim() !== '' ?
+                    `<div style="margin-top: 8px; display: flex; align-items: center; gap: 12px;">
+                        <img src="${request.prescription_url}" alt="Prescription Preview" 
+                            style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 2px solid #e5e7eb; cursor: pointer;"
+                            onclick="window.open('${request.prescription_url}', '_blank')"
+                            onerror="this.style.display='none'">
+                        <a href="${request.prescription_url}" target="_blank" 
+                            style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; background-color: #3b82f6; color: white; font-weight: 600; border-radius: 8px; text-decoration: none; box-shadow: 0 1px 2px rgba(0,0,0,0.1);"
+                            onmouseover="this.style.backgroundColor='#2563eb'" 
+                            onmouseout="this.style.backgroundColor='#3b82f6'">
+                            <svg style="width: 20px; height: 20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            View Prescription
+                        </a>
+                    </div>` :
+                    '<p style="color: #6b7280; font-size: 14px; margin-top: 4px;">No prescription uploaded</p>';
+
+                const statusColors = {
+                    'pending': 'bg-blue-100 text-blue-700',
+                    'approved': 'bg-green-100 text-green-700',
+                    'fulfilled': 'bg-purple-100 text-purple-700',
+                    'cancelled': 'bg-red-100 text-red-700'
+                };
+
+                const urgencyColors = {
+                    'normal': 'bg-yellow-100 text-yellow-700',
+                    'urgent': 'bg-orange-100 text-orange-700',
+                    'critical': 'bg-red-100 text-red-700'
+                };
+
                 const html = `
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
@@ -241,11 +318,11 @@
                         </div>
                         <div>
                             <label class="text-xs font-semibold text-gray-500">Blood Type</label>
-                            <p class="text-gray-900 font-semibold text-lg">${request.blood_type}</p>
+                            <span class="inline-flex items-center justify-center px-3 py-1 bg-red-100 text-red-700 rounded-lg font-bold text-lg">${request.blood_type}</span>
                         </div>
                         <div>
                             <label class="text-xs font-semibold text-gray-500">Units Required</label>
-                            <p class="text-gray-900 font-semibold">${request.units_required}</p>
+                            <p class="text-gray-900 font-semibold">${request.units_required} units</p>
                         </div>
                         <div>
                             <label class="text-xs font-semibold text-gray-500">Phone</label>
@@ -261,11 +338,11 @@
                         </div>
                         <div>
                             <label class="text-xs font-semibold text-gray-500">Urgency</label>
-                            <p class="text-gray-900">${request.urgency}</p>
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold ${urgencyColors[request.urgency] || 'bg-gray-100 text-gray-700'}">${request.urgency.charAt(0).toUpperCase() + request.urgency.slice(1)}</span>
                         </div>
                         <div>
-                            <label class="text-xs font-semibold text-gray-500">Status</label>
-                            <p class="text-gray-900">${request.status}</p>
+                            <label class="text-xs font-semibold text-gray-500">Current Status</label>
+                            <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold ${statusColors[request.status] || 'bg-gray-100 text-gray-700'}">${request.status.charAt(0).toUpperCase() + request.status.slice(1)}</span>
                         </div>
                         <div>
                             <label class="text-xs font-semibold text-gray-500">Requested By</label>
@@ -273,10 +350,10 @@
                         </div>
                         <div class="md:col-span-2">
                             <label class="text-xs font-semibold text-gray-500">Doctor Prescription</label>
-                            <p class="text-gray-900">${request.doctor_prescription || 'N/A'}</p>
+                            ${prescriptionHtml}
                         </div>
                         <div class="md:col-span-2">
-                            <label class="text-xs font-semibold text-gray-500">Date</label>
+                            <label class="text-xs font-semibold text-gray-500">Request Date</label>
                             <p class="text-gray-900">${request.date}</p>
                         </div>
                     </div>

@@ -193,4 +193,27 @@ class AdminDashboardController extends Controller
 
         return view('admin.requests', compact('bloodRequests', 'stats', 'bloodTypeStats'));
     }
+
+    /**
+     * Update blood request status
+     */
+    public function updateRequestStatus(Request $request, $id)
+    {
+        $bloodRequest = BloodRequest::findOrFail($id);
+
+        // Prevent status change if already updated from pending
+        if ($bloodRequest->status !== 'pending') {
+            return redirect()->back()->with('error', 'Status cannot be changed once it has been updated from pending.');
+        }
+
+        $validated = $request->validate([
+            'status' => 'required|in:pending,approved,fulfilled,cancelled',
+        ]);
+
+        $bloodRequest->update([
+            'status' => $validated['status'],
+        ]);
+
+        return redirect()->back()->with('success', 'Request status updated successfully!');
+    }
 }
