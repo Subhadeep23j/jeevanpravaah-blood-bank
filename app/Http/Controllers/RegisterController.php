@@ -26,8 +26,12 @@ class RegisterController extends Controller
             'email' => 'required|email|unique:users,email',
             'phone' => 'required|digits:10|unique:users,phone',
             'aadhar' => 'required|digits:12|unique:users,aadhar',
+            'date_of_birth' => 'required|date',
+            'gender' => 'required|in:male,female,other',
+            'blood_group' => 'required|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
             'address' => 'required',
             'city' => 'required',
+            'state' => 'required',
             'pin' => 'required|digits:6',
             'password' => 'required|confirmed', // min:6|
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048'

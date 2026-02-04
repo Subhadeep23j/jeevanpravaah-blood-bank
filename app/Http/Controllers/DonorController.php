@@ -39,8 +39,6 @@ class DonorController extends Controller
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255'],
             'phone' => ['required', 'string', 'max:20'],
-            'date_of_birth' => ['required', 'date'],
-            'gender' => ['required', 'in:male,female,other'],
 
             // Medical
             'blood_group' => ['required', 'in:A+,A-,B+,B-,O+,O-,AB+,AB-'],
@@ -69,9 +67,36 @@ class DonorController extends Controller
         $validated['consent_contact'] = $request->boolean('consent_contact');
         $validated['consent_privacy'] = $request->boolean('consent_privacy');
 
-        // Always trust the authenticated user's email
+        // Handle user profile data - use from profile if set, otherwise use form input
         if ($request->user()) {
-            $validated['email'] = $request->user()->email;
+            $user = $request->user();
+            $validated['email'] = $user->email;
+            $validated['date_of_birth'] = $user->date_of_birth;
+            $validated['gender'] = $user->gender;
+
+            // State: use from profile if set, otherwise use form input and update profile
+            if ($user->state) {
+                $validated['state'] = $user->state;
+            } else {
+                $validated['state'] = $request->input('state');
+                $user->state = $validated['state'];
+            }
+
+            // PIN: use from profile
+            $validated['pincode'] = $user->pin;
+
+            // Blood group: use from profile if set, otherwise use form input and update profile
+            if ($user->blood_group) {
+                $validated['blood_group'] = $user->blood_group;
+            } else {
+                $validated['blood_group'] = $request->input('blood_group');
+                $user->blood_group = $validated['blood_group'];
+            }
+
+            // Save updated user profile if state or blood_group was added
+            if ($user->isDirty()) {
+                $user->save();
+            }
         }
 
         DB::transaction(function () use ($request, $validated) {

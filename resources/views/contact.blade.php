@@ -74,14 +74,14 @@
                                     *</label>
                                 <input type="text" name="name" id="name" value="{{ old('name') }}"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all bg-gray-50 focus:bg-white"
-                                    placeholder="John Doe" required>
+                                    placeholder="Ram Choudhary" required>
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address
                                     *</label>
                                 <input type="email" name="email" id="email" value="{{ old('email') }}"
                                     class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all bg-gray-50 focus:bg-white"
-                                    placeholder="john@example.com" required>
+                                    placeholder="ram.choudhary@gmail.com" required>
                             </div>
                         </div>
 
@@ -268,9 +268,9 @@
 
             <div class="glass-card rounded-3xl overflow-hidden border border-red-100 shadow-xl">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.11609823277!2d72.74109995709657!3d19.08219783958221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c6306644edc1%3A0x5da4ed8f8d648c69!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1702712345678!5m2!1sen!2sin"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117925.35231272508!2d88.26495101279187!3d22.535406374539196!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f882db4908f667%3A0x43e330e68f6c2cbc!2sKolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1770022000038!5m2!1sen!2sin"
                     width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade" class="rounded-3xl">
+                    referrerpolicy="no-referrer-when-downgrade" class="w-full">
                 </iframe>
             </div>
         </div>

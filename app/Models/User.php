@@ -28,10 +28,12 @@ class User extends Authenticatable
         'address',
         'city',
         'pin',
+        'state',
         'password',
         'donations_count',
         'email_verified_at',
         'gender',
+        'blood_group',
         'date_of_birth',
     ];
 
@@ -56,6 +58,7 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'donations_count' => 'integer',
+            'date_of_birth' => 'date',
         ];
     }
 

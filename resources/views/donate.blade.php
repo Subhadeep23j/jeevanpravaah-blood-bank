@@ -436,15 +436,6 @@
                                         class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
                                     <label class="input-label">Aadhar Number</label>
                                 </div> --}}
-
-                                <!-- Date of Birth -->
-                                <div class="input-group md:col-span-2">
-                                    <input type="date" name="date_of_birth" required placeholder=" "
-                                        @auth value="{{ auth()->user()->date_of_birth ?? '' }}" readonly @endauth
-                                        @guest disabled @endguest
-                                        class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
-                                    <label class="input-label">Date of Birth</label>
-                                </div>
                             </div>
                         </div>
 
@@ -472,17 +463,27 @@
                                         <label class="input-label">City</label>
                                     </div>
 
+                                    <!-- State (from registration) -->
+                                    <div class="input-group">
+                                        <input type="text" name="state" placeholder=" " required
+                                            @auth value="{{ auth()->user()->state ?? '' }}" 
+                                                @if (auth()->user()->state) readonly @endif @endauth
+                                            @guest disabled @endguest
+                                            class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all @auth @if (!auth()->user()->state) bg-yellow-50 border-yellow-300 @endif @endauth">
+                                        <label class="input-label">State @auth @if (!auth()->user()->state)
+                                                <span class="text-yellow-600">(Please fill)</span>
+                                            @endif @endauth
+                                        </label>
+                                    </div>
+
                                     <!-- PIN Code (from registration) -->
                                     <div class="input-group">
-                                        <input type="text" name="pin" placeholder=" "
+                                        <input type="text" name="pincode" placeholder=" "
                                             @auth value="{{ auth()->user()->pin ?? '' }}" readonly @endauth
                                             @guest disabled @endguest
                                             class="w-full border-2 border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-red-500 focus:border-red-500 focus:outline-none transition-all">
                                         <label class="input-label">PIN Code</label>
                                     </div>
-
-                                    <!-- Additional empty slot for grid alignment -->
-                                    <div></div>
                                 </div>
                             </div>
                         </div>
@@ -492,55 +493,59 @@
                     <div class="form-step" id="step2">
                         <h3 class="text-2xl font-bold text-gray-800 mb-8 text-center">Medical Information</h3>
 
-                        <!-- Section: Blood Type -->
-                        <div class="form-section">
-                            <div class="form-section-title">Blood Type</div>
-
-                            <label class="block text-gray-700 font-medium mb-4">Select Your Blood Type</label>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 @guest locked-form @endguest">
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'A+')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">A+</div>
-                                    <div class="text-xs text-gray-600">Type A Positive</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'A-')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">A-</div>
-                                    <div class="text-xs text-gray-600">Type A Negative</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'B+')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">B+</div>
-                                    <div class="text-xs text-gray-600">Type B Positive</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'B-')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">B-</div>
-                                    <div class="text-xs text-gray-600">Type B Negative</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'O+')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">O+</div>
-                                    <div class="text-xs text-gray-600">Type O Positive</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'O-')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">O-</div>
-                                    <div class="text-xs text-gray-600">Universal Donor</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'AB+')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">AB+</div>
-                                    <div class="text-xs text-gray-600">Universal Receiver</div>
-                                </div>
-                                <div class="blood-type-card border-2 border-gray-200 rounded-xl p-4 text-center"
-                                    @guest onclick="showLoginPrompt()" style="cursor: not-allowed; opacity: 0.6;" @else onclick="selectBloodType(this, 'AB-')" @endguest>
-                                    <div class="text-2xl font-bold text-red-500 mb-1">AB-</div>
-                                    <div class="text-xs text-gray-600">Type AB Negative</div>
+                        <!-- Section: Your Blood Group -->
+                        @auth
+                            <div class="form-section">
+                                <div class="form-section-title">Your Blood Group</div>
+                                <div class="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-4">
+                                    <div
+                                        class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow">
+                                        <span
+                                            class="text-2xl font-bold text-white">{{ auth()->user()->blood_group ?? '?' }}</span>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Blood Group</p>
+                                        <p class="text-xl font-bold text-gray-800">
+                                            {{ auth()->user()->blood_group ?? 'Not Set' }}</p>
+                                    </div>
                                 </div>
                             </div>
+
+                            @if (!auth()->user()->blood_group)
+                                <!-- Blood Group Selection (only if not set in profile) -->
+                                <div class="form-section mt-6">
+                                    <div class="form-section-title flex items-center gap-2">
+                                        <span class="text-yellow-600">⚠</span> Select Your Blood Group
+                                    </div>
+                                    <p
+                                        class="text-sm text-yellow-700 mb-4 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                        Your blood group is not set in your profile. Please select it below.
+                                    </p>
+                                    <div class="grid grid-cols-4 md:grid-cols-8 gap-3">
+                                        @foreach (['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] as $bg)
+                                            <label class="blood-type-option cursor-pointer">
+                                                <input type="radio" name="blood_group" value="{{ $bg }}"
+                                                    required class="hidden peer">
+                                                <div
+                                                    class="flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 hover:bg-red-50 peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-2 peer-checked:ring-red-200 transition-all">
+                                                    <span class="text-lg font-bold text-red-600">{{ $bg }}</span>
+                                                </div>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endif
+                        @endauth
+
+                        <!-- Hidden inputs for blood_group (only when user has blood_group set) -->
+                        @auth
+                            @if (auth()->user()->blood_group)
+                                <input type="hidden" name="blood_group" id="selectedBloodType"
+                                    value="{{ auth()->user()->blood_group }}">
+                            @endif
+                        @else
                             <input type="hidden" name="blood_group" id="selectedBloodType" required>
-                        </div>
+                        @endauth
 
                         <!-- Section: Physical Measurements & BMI -->
                         <div class="form-section">
