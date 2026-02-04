@@ -26,7 +26,7 @@
                 <!-- User Profile Dropdown -->
                 <div class="relative" x-data="{ open: false }">
                     <button @click="open = !open" @click.away="open = false"
-                        class="inline-flex items-center gap-2 p-1 rounded-3xl text-sm font-semibold shadow-sm transition-all bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 hover:shadow-lg">
+                        class="inline-flex items-center gap-2 p-1 rounded-3xl text-sm font-semibold shadow-sm transition-all bg-gradient-to-r from-red-500 to-red-600 text-white hover:from-red-600 hover:to-red-700 hover:shadow-lg cursor-pointer">
                         <!-- User Profile Image -->
                         <div
                             class="w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center overflow-hidden border-2 border-white/30">

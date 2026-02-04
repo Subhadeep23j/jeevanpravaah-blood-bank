@@ -626,6 +626,8 @@
         </main>
         @include('layouts.footer')
     </div>
+
+    @include('components.emergency-247')
     @stack('scripts')
 
     <script>
