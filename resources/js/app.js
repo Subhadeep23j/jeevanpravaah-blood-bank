@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	function openPanel() {
 		isOpen = true;
-		// Slide whole container to show panel (translateX(0) brings it into view)
-		root.style.transform = 'translateX(0)';
+		// Slide whole container to show panel
+		root.style.right = '0px';
 		overlay.classList.remove('opacity-0', 'pointer-events-none');
 		overlay.classList.add('opacity-100');
 		panel.setAttribute('aria-hidden', 'false');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	function closePanel() {
 		isOpen = false;
 		// Slide container back to hide panel (only button visible)
-		root.style.transform = 'translateX(320px)';
+		root.style.right = '-320px';
 		overlay.classList.add('opacity-0', 'pointer-events-none');
 		overlay.classList.remove('opacity-100');
 		panel.setAttribute('aria-hidden', 'true');

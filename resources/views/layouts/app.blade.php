@@ -532,7 +532,7 @@
 
         html {
             /* Reserve space for scrollbar to avoid layout shift (Chromium/modern browsers) */
-            scrollbar-gutter: stable both-edges;
+            scrollbar-gutter: stable;
         }
 
         body {

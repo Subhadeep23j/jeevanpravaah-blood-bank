@@ -6,8 +6,8 @@
 
 {{-- Container: button + panel in a row, slides left/right together --}}
 <div id="jpEmergency247Root"
-    class="fixed top-1/3 z-[1050] flex flex-row items-start transition-transform duration-300 ease-out"
-    style="right: 0; transform: translateX(320px);">
+    class="fixed top-[25%] z-[1050] flex flex-row items-start transition-all duration-300 ease-out"
+    style="right: -320px;">
 
     {{-- Toggle Button (left side of the container) --}}
     <button id="jpEmergencyToggle" type="button" aria-controls="jpEmergencyPanel" aria-expanded="false"
@@ -26,8 +26,8 @@
                 <div class="text-sm font-semibold text-gray-900">24x7 Emergency</div>
                 <div class="text-xs text-gray-500">Quick help & contact numbers</div>
             </div>
-            <button id="jpEmergencyClose" type="button" class="p-2 rounded-lg hover:bg-red-50 text-gray-600 cursor-pointer"
-                aria-label="Close emergency panel">
+            <button id="jpEmergencyClose" type="button"
+                class="p-2 rounded-lg hover:bg-red-50 text-gray-600 cursor-pointer" aria-label="Close emergency panel">
                 <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
