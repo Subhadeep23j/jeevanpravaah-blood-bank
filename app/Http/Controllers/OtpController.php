@@ -37,7 +37,11 @@ class OtpController extends Controller
             'aadhar' => 'required|digits:12|unique:users,aadhar',
             'address' => 'required|string',
             'city' => 'required|string',
+            'state' => 'required|string|max:120',
             'pin' => 'required|digits:6',
+            'blood_group' => 'required|in:A+,A-,B+,B-,O+,O-,AB+,AB-',
+            'gender' => 'required|in:male,female,other',
+            'date_of_birth' => 'required|date|before:today',
             'password' => 'required|confirmed|min:6',
             'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp,svg,bmp|max:2048'
         ]);
@@ -50,7 +54,11 @@ class OtpController extends Controller
             'aadhar' => $validatedData['aadhar'],
             'address' => $validatedData['address'],
             'city' => $validatedData['city'],
+            'state' => $validatedData['state'],
             'pin' => $validatedData['pin'],
+            'blood_group' => $validatedData['blood_group'],
+            'gender' => $validatedData['gender'],
+            'date_of_birth' => $validatedData['date_of_birth'],
             'password_hash' => Hash::make($validatedData['password']),
         ];
 
@@ -136,7 +144,11 @@ class OtpController extends Controller
             'aadhar' => $registrationData['aadhar'],
             'address' => $registrationData['address'],
             'city' => $registrationData['city'],
+            'state' => $registrationData['state'] ?? null,
             'pin' => $registrationData['pin'],
+            'blood_group' => $registrationData['blood_group'] ?? null,
+            'gender' => $registrationData['gender'] ?? null,
+            'date_of_birth' => $registrationData['date_of_birth'] ?? null,
             'password' => $registrationData['password_hash'],
             'profile_image_path' => $registrationData['profile_image_path'] ?? null,
             'email_verified_at' => now(),

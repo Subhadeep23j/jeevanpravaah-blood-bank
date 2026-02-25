@@ -42,6 +42,7 @@ class DonorController extends Controller
 
             // Medical
             'blood_group' => ['required', 'in:A+,A-,B+,B-,O+,O-,AB+,AB-'],
+            'gender' => ['required', 'in:male,female,other'],
             'weight' => ['required', 'integer', 'min:45', 'max:400'],
             'height' => ['required', 'integer', 'min:100', 'max:300'],
             'medical_conditions' => ['nullable', 'string'],
@@ -72,7 +73,14 @@ class DonorController extends Controller
             $user = $request->user();
             $validated['email'] = $user->email;
             $validated['date_of_birth'] = $user->date_of_birth;
-            $validated['gender'] = $user->gender;
+
+            // Gender: use from profile if set, otherwise use form input and update profile
+            if ($user->gender) {
+                $validated['gender'] = $user->gender;
+            } else {
+                $validated['gender'] = $request->input('gender');
+                $user->gender = $validated['gender'];
+            }
 
             // State: use from profile if set, otherwise use form input and update profile
             if ($user->state) {

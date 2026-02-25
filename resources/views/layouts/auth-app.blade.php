@@ -147,6 +147,94 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
+        /* Mobile menu container animation */
+        #mobile-menu {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transform: translateY(-8px) scaleY(0.98);
+            transform-origin: top;
+            visibility: hidden;
+            pointer-events: none;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0s linear 0.35s;
+        }
+
+        #mobile-menu.menu-opened {
+            max-height: 520px;
+            opacity: 1;
+            transform: translateY(0) scaleY(1);
+            visibility: visible;
+            pointer-events: auto;
+            transition: max-height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+                visibility 0s linear 0s;
+        }
+
+        /* Staggered animation for menu items */
+        #mobile-menu nav a {
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #mobile-menu.menu-opened nav a {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        #mobile-menu.menu-opened nav a:nth-child(1) {
+            transition-delay: 0.1s;
+        }
+
+        #mobile-menu.menu-opened nav a:nth-child(2) {
+            transition-delay: 0.15s;
+        }
+
+        #mobile-menu.menu-opened nav a:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        #mobile-menu.menu-opened nav a:nth-child(4) {
+            transition-delay: 0.25s;
+        }
+
+        #mobile-menu.menu-opened nav a:nth-child(5) {
+            transition-delay: 0.3s;
+        }
+
+        #mobile-menu.menu-opened nav a:nth-child(6) {
+            transition-delay: 0.35s;
+        }
+
+        #mobile-menu nav form {
+            transform: translateX(-20px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        #mobile-menu.menu-opened nav form {
+            transform: translateX(0);
+            opacity: 1;
+            transition-delay: 0.35s;
+        }
+
+        /* Mobile menu button animation */
+        #mobile-menu-button {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #mobile-menu-button:hover {
+            transform: scale(1.1);
+        }
+
+        #mobile-menu-button.menu-open svg {
+            transform: rotate(90deg);
+        }
+
         html,
         body {
             margin: 0 !important;

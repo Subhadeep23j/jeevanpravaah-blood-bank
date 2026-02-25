@@ -628,7 +628,6 @@
     </div>
 
     @include('components.emergency-247')
-    @stack('scripts')
 
     <script>
         // Robust Page Loader logic: handles initial load and browser back/forward (bfcache)

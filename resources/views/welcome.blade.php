@@ -272,6 +272,430 @@
         </div>
     </section>
 
+    <!-- Benefits Section for SEO -->
+    <section class="py-16 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-gray-900">
+                    Why Choose Blood <span class="text-red-500">Donation?</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-red-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg sm:text-xl text-gray-600 font-medium">Discover the life-saving impact of your
+                    contribution</p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 gap-8">
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-100 text-red-500">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Save Up to 3 Lives</h3>
+                            <p class="text-gray-600">A single blood donation can save up to three lives. Your contribution
+                                makes an immediate, measurable difference in critical medical situations.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-100 text-red-500">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Free Health Check</h3>
+                            <p class="text-gray-600">Donors receive comprehensive health screenings including blood
+                                pressure, cholesterol, and disease testing at no cost.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-100 text-red-500">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Community Recognition</h3>
+                            <p class="text-gray-600">Become a recognized hero in our community. Track your impact and earn
+                                badges for your life-saving contributions.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-12 w-12 rounded-md bg-red-100 text-red-500">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-lg font-bold text-gray-900 mb-2">Feel Great & Help</h3>
+                            <p class="text-gray-600">Experience the fulfillment of helping others while improving your own
+                                health through regular blood donations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blood Types & Compatibility Section for SEO -->
+    <section class="py-16 sm:py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-gray-900">
+                    Blood Type <span class="text-red-500">Compatibility</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-red-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg sm:text-xl text-gray-600 font-medium">Understand which blood types can help whom</p>
+            </div>
+
+            <div class="overflow-x-auto" data-aos="fade-up" data-aos-delay="100">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="bg-red-50 border-b-2 border-red-200">
+                            <th class="px-4 py-3 text-left font-bold text-gray-900">Blood Type</th>
+                            <th class="px-4 py-3 text-left font-bold text-gray-900">Can Donate To</th>
+                            <th class="px-4 py-3 text-left font-bold text-gray-900">Can Receive From</th>
+                            <th class="px-4 py-3 text-left font-bold text-gray-900">Donation Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-bold text-red-500">O Positive</td>
+                            <td class="px-4 py-3 text-gray-600">All blood types (Universal Donor)</td>
+                            <td class="px-4 py-3 text-gray-600">O+, O-</td>
+                            <td class="px-4 py-3 text-gray-600">Every 56 days</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-bold text-red-500">O Negative</td>
+                            <td class="px-4 py-3 text-gray-600">All blood types</td>
+                            <td class="px-4 py-3 text-gray-600">O- only</td>
+                            <td class="px-4 py-3 text-gray-600">Every 56 days</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-bold text-red-500">A Positive</td>
+                            <td class="px-4 py-3 text-gray-600">A+, AB+</td>
+                            <td class="px-4 py-3 text-gray-600">A+, A-, O+, O-</td>
+                            <td class="px-4 py-3 text-gray-600">Every 56 days</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-bold text-red-500">B Positive</td>
+                            <td class="px-4 py-3 text-gray-600">B+, AB+</td>
+                            <td class="px-4 py-3 text-gray-600">B+, B-, O+, O-</td>
+                            <td class="px-4 py-3 text-gray-600">Every 56 days</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 font-bold text-red-500">AB Positive</td>
+                            <td class="px-4 py-3 text-gray-600">AB+ only (Universal Recipient)</td>
+                            <td class="px-4 py-3 text-gray-600">All blood types</td>
+                            <td class="px-4 py-3 text-gray-600">Every 56 days</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section for SEO -->
+    <section class="py-16 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-gray-900">
+                    Frequently Asked <span class="text-red-500">Questions</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-red-500 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-4" data-aos="fade-up" data-aos-delay="100">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <button
+                        class="w-full px-6 py-4 text-left font-semibold text-gray-800 hover:bg-red-50 flex justify-between items-center faq-toggle"
+                        aria-expanded="false">
+                        <span>Who can donate blood with JeevanPravaah?</span>
+                        <svg class="w-5 h-5 text-red-500 transform transition-transform faq-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                            </path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        <p>Blood donors must be 18 years or older, weigh at least 50 kg, have good general health, and meet
+                            medical eligibility criteria set by WHO guidelines. Donors are screened for infectious diseases
+                            and other health conditions before each donation.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <button
+                        class="w-full px-6 py-4 text-left font-semibold text-gray-800 hover:bg-red-50 flex justify-between items-center faq-toggle"
+                        aria-expanded="false">
+                        <span>How often can I donate blood?</span>
+                        <svg class="w-5 h-5 text-red-500 transform transition-transform faq-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                            </path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        <p>You can donate whole blood every 56 days (8 weeks). Platelet donors can donate more frequently,
+                            up to 24 times a year. Our platform tracks your donation history and will notify you when you're
+                            eligible to donate again.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <button
+                        class="w-full px-6 py-4 text-left font-semibold text-gray-800 hover:bg-red-50 flex justify-between items-center faq-toggle"
+                        aria-expanded="false">
+                        <span>Is blood donation safe and does it hurt?</span>
+                        <svg class="w-5 h-5 text-red-500 transform transition-transform faq-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                            </path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        <p>Blood donation is extremely safe when performed by trained healthcare professionals using sterile
+                            equipment. The actual needle insertion causes minimal discomfort. The entire process typically
+                            takes 15 minutes, and donors can resume normal activities immediately afterward.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <button
+                        class="w-full px-6 py-4 text-left font-semibold text-gray-800 hover:bg-red-50 flex justify-between items-center faq-toggle"
+                        aria-expanded="false">
+                        <span>How does JeevanPravaah match donors with recipients?</span>
+                        <svg class="w-5 h-5 text-red-500 transform transition-transform faq-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                            </path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        <p>Our AI-powered algorithm analyzes blood type compatibility, geographic location, availability,
+                            and medical history to instantly match donors with recipients. When a match is found, both
+                            parties receive real-time notifications through the platform.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <button
+                        class="w-full px-6 py-4 text-left font-semibold text-gray-800 hover:bg-red-50 flex justify-between items-center faq-toggle"
+                        aria-expanded="false">
+                        <span>What are the health benefits of donating blood?</span>
+                        <svg class="w-5 h-5 text-red-500 transform transition-transform faq-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                            </path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        <p>Regular blood donation has been shown to reduce the risk of heart attack and stroke, help
+                            maintain healthy iron levels, and improve overall cardiovascular health. Additionally, donors
+                            receive a free health checkup and receive their blood type information.</p>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                    <button
+                        class="w-full px-6 py-4 text-left font-semibold text-gray-800 hover:bg-red-50 flex justify-between items-center faq-toggle"
+                        aria-expanded="false">
+                        <span>How is my privacy protected on JeevanPravaah?</span>
+                        <svg class="w-5 h-5 text-red-500 transform transition-transform faq-icon" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3">
+                            </path>
+                        </svg>
+                    </button>
+                    <div class="faq-answer hidden px-6 py-4 bg-gray-50 text-gray-600 border-t border-gray-200">
+                        <p>Your privacy and data security are our top priorities. All personal and medical information is
+                            encrypted using industry-standard security protocols. We never share your details with third
+                            parties without explicit consent and comply with international data protection regulations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog/Resources Section for SEO -->
+    <section class="py-16 sm:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-gray-900">
+                    Blood Donation <span class="text-red-500">Resources</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-red-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg sm:text-xl text-gray-600 font-medium">Learn more about blood donation and saving lives
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-3 gap-6">
+                <article class="group glass-card rounded-lg overflow-hidden hover-lift border border-gray-200"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div
+                        class="h-40 bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center group-hover:from-red-200 transition-colors">
+                        <svg class="w-16 h-16 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5h.01v.01H12v-.01z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">First
+                            Time Donor Guide</h3>
+                        <p class="text-sm text-gray-600 mb-4">Everything you need to know before your first donation
+                            including preparation tips and what to expect.</p>
+                        <a href="#" class="text-red-500 font-semibold text-sm hover:text-red-600">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="group glass-card rounded-lg overflow-hidden hover-lift border border-gray-200"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div
+                        class="h-40 bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center group-hover:from-red-200 transition-colors">
+                        <svg class="w-16 h-16 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5h.01v.01H12v-.01z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">Health
+                            Benefits of Giving Blood</h3>
+                        <p class="text-sm text-gray-600 mb-4">Discover the surprising health benefits of regular blood
+                            donation including cardiovascular and metabolic improvements.</p>
+                        <a href="#" class="text-red-500 font-semibold text-sm hover:text-red-600">Read More →</a>
+                    </div>
+                </article>
+
+                <article class="group glass-card rounded-lg overflow-hidden hover-lift border border-gray-200"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div
+                        class="h-40 bg-gradient-to-br from-red-100 to-red-50 flex items-center justify-center group-hover:from-red-200 transition-colors">
+                        <svg class="w-16 h-16 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-red-600 transition-colors">
+                            Emergency Blood Needs</h3>
+                        <p class="text-sm text-gray-600 mb-4">Learn about critical situations requiring blood transfusions
+                            and why a steady supply of donors is essential.</p>
+                        <a href="#" class="text-red-500 font-semibold text-sm hover:text-red-600">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section for Trust & SEO -->
+    <section class="py-16 sm:py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12" data-aos="fade-up">
+                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black mb-4 text-gray-900">
+                    Stories from Our <span class="text-red-500">Community</span>
+                </h2>
+                <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-red-500 mx-auto rounded-full mb-6"></div>
+                <p class="text-lg sm:text-xl text-gray-600 font-medium">Real stories of lives saved through blood donation
+                </p>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-red-50 to-white rounded-lg p-8 border border-red-100 hover:shadow-lg transition-shadow"
+                    data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center font-bold mr-4">
+                            RK</div>
+                        <div>
+                            <p class="font-bold text-gray-900">Rajesh Kumar</p>
+                            <p class="text-sm text-gray-600">Active Donor, 5+ donations</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-400">★★★★★</span>
+                    </div>
+                    <p class="text-gray-700">JeevanPravaah made it so easy to find donation centers near me. The app
+                        notifications helped me save someone's life during an emergency. Highly recommend!</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-red-50 to-white rounded-lg p-8 border border-red-100 hover:shadow-lg transition-shadow"
+                    data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center font-bold mr-4">
+                            PC</div>
+                        <div>
+                            <p class="font-bold text-gray-900">Priya Chakraborty</p>
+                            <p class="text-sm text-gray-600">Recipient's Family</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-400">★★★★★</span>
+                    </div>
+                    <p class="text-gray-700">My daughter needed urgent blood during surgery. Thanks to JeevanPravaah, we
+                        found compatible donors within hours. Forever grateful!</p>
+                </div>
+
+                <div class="bg-gradient-to-br from-red-50 to-white rounded-lg p-8 border border-red-100 hover:shadow-lg transition-shadow"
+                    data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center font-bold mr-4">
+                            SM</div>
+                        <div>
+                            <p class="font-bold text-gray-900">Dr. Sunil Mehta</p>
+                            <p class="text-sm text-gray-600">Surgeon at City Hospital</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-400">★★★★★</span>
+                    </div>
+                    <p class="text-gray-700">As a healthcare provider, I trust JeevanPravaah's quality standards and safety
+                        protocols. It's revolutionized emergency blood supply management.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Enhanced Final CTA Section -->
     <section class="py-20 sm:py-28 bg-gradient-to-br from-red-50 via-red-100 to-red-100 relative overflow-hidden">
         <!-- Animated background elements -->
@@ -347,7 +771,7 @@
                     <div class="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
                         <svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd"
-                                d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                d="M2.166 4.999A11.954 11.954 0 0110 1.944 11.954 11.954 0 0117.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                 clip-rule="evenodd" />
                         </svg>
                     </div>
@@ -361,85 +785,177 @@
                             </path>
                         </svg>
                     </div>
-                @endsection
+                </div>
+            </div>
+        </div>
+    </section>
 
-                @push('head')
-                    <style>
-                        .heart-beat {
-                            animation: heart-beat 2s ease-in-out infinite;
+@endsection
+
+@push('head')
+    <style>
+        .heart-beat {
+            animation: heart-beat 2s ease-in-out infinite;
+        }
+
+        @keyframes heart-beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .stats-counter {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .feature-icon-bg {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+
+        .cta-gradient {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 50%, #fecaca 100%);
+        }
+
+        /* FAQ Styles */
+        .faq-item {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        .faq-toggle {
+            cursor: pointer;
+        }
+
+        .faq-toggle:hover {
+            background-color: #fef2f2;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-toggle[aria-expanded="true"] .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            animation: slideDown 0.3s ease-out;
+        }
+
+        .faq-answer.hidden {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                max-height: 0;
+            }
+
+            to {
+                opacity: 1;
+                max-height: 500px;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 1;
+                max-height: 500px;
+            }
+
+            to {
+                opacity: 0;
+                max-height: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+@endpush
+
+@push('scripts')
+    <script>
+        // Stats counter animation
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const increment = target / 50;
+            let current = 0;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target.toLocaleString();
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current).toLocaleString();
+                }
+            }, 40);
+        }
+
+        // Intersection Observer for stats
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counters = entry.target.querySelectorAll('.stats-counter');
+                    counters.forEach(counter => {
+                        if (!counter.classList.contains('animated')) {
+                            counter.classList.add('animated');
+                            animateCounter(counter);
                         }
+                    });
+                }
+            });
+        }, observerOptions);
 
-                        @keyframes heart-beat {
+        // Observe stats section
+        document.addEventListener('DOMContentLoaded', () => {
+            const statsSection = document.querySelector('.stats-counter').closest('.grid');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
 
-                            0%,
-                            100% {
-                                transform: scale(1);
-                            }
+            // FAQ Toggle functionality
+            document.querySelectorAll('.faq-toggle').forEach(button => {
+                button.addEventListener('click', function() {
+                    const answer = this.nextElementSibling;
+                    const isExpanded = this.getAttribute('aria-expanded') === 'true';
 
-                            50% {
-                                transform: scale(1.1);
-                            }
+                    // Close other open FAQs
+                    document.querySelectorAll('.faq-toggle').forEach(otherButton => {
+                        if (otherButton !== this) {
+                            otherButton.setAttribute('aria-expanded', 'false');
+                            otherButton.nextElementSibling.classList.add('hidden');
                         }
+                    });
 
-                        .stats-counter {
-                            font-variant-numeric: tabular-nums;
-                        }
-
-                        .feature-icon-bg {
-                            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
-                        }
-
-                        .cta-gradient {
-                            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 50%, #fecaca 100%);
-                        }
-                    </style>
-                @endpush
-
-                @push('scripts')
-                    <script>
-                        // Stats counter animation
-                        function animateCounter(element) {
-                            const target = parseInt(element.getAttribute('data-target'));
-                            const increment = target / 50;
-                            let current = 0;
-
-                            const timer = setInterval(() => {
-                                current += increment;
-                                if (current >= target) {
-                                    element.textContent = target.toLocaleString();
-                                    clearInterval(timer);
-                                } else {
-                                    element.textContent = Math.floor(current).toLocaleString();
-                                }
-                            }, 40);
-                        }
-
-                        // Intersection Observer for stats
-                        const observerOptions = {
-                            threshold: 0.1,
-                            rootMargin: '0px 0px -100px 0px'
-                        };
-
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    const counters = entry.target.querySelectorAll('.stats-counter');
-                                    counters.forEach(counter => {
-                                        if (!counter.classList.contains('animated')) {
-                                            counter.classList.add('animated');
-                                            animateCounter(counter);
-                                        }
-                                    });
-                                }
-                            });
-                        }, observerOptions);
-
-                        // Observe stats section
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const statsSection = document.querySelector('.stats-counter').closest('.grid');
-                            if (statsSection) {
-                                observer.observe(statsSection);
-                            }
-                        });
-                    </script>
-                @endpush
+                    // Toggle current FAQ
+                    this.setAttribute('aria-expanded', !isExpanded);
+                    if (isExpanded) {
+                        answer.classList.add('hidden');
+                    } else {
+                        answer.classList.remove('hidden');
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

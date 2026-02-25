@@ -4,6 +4,13 @@
 
 @push('head')
     <style>
+        :root {
+            --primary-red: #c10007;
+            --primary-red-light: #ffeaea;
+            --primary-red-lighter: #fff5f5;
+            --primary-red-dark: #9a0006;
+        }
+
         .form-step {
             display: none;
         }
@@ -32,17 +39,18 @@
 
         .blood-type-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.15);
+            box-shadow: 0 8px 25px rgba(193, 0, 7, 0.15);
         }
 
         .blood-type-card.selected {
-            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
-            border-color: #ef4444;
+            background: linear-gradient(135deg, var(--primary-red-lighter) 0%, var(--primary-red-light) 100%);
+            border-color: var(--primary-red);
             transform: scale(1.02);
         }
 
         .progress-bar {
             transition: width 0.3s ease;
+            background-color: var(--primary-red) !important;
         }
 
         .input-group {
@@ -52,7 +60,7 @@
         .input-group input:focus+.input-label,
         .input-group input:not(:placeholder-shown)+.input-label {
             transform: translateY(-1.5rem) scale(0.875);
-            color: #ef4444;
+            color: var(--primary-red);
         }
 
         .input-label {
@@ -78,14 +86,14 @@
         }
 
         .step-indicator.completed {
-            background: #ef4444;
+            background: var(--primary-red);
             color: white;
         }
 
         .step-indicator.active {
-            background: #fecaca;
-            color: #dc2626;
-            border: 2px solid #ef4444;
+            background: var(--primary-red-light);
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
         }
 
         .step-indicator.inactive {
@@ -160,14 +168,16 @@
         }
 
         .bmi-status-obese {
-            color: #ef4444;
+            color: var(--primary-red);
         }
 
         .form-section {
-            background: #f9fafb;
+            background: white;
             padding: 1.5rem;
             border-radius: 1rem;
             margin-bottom: 1.5rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .form-section-title {
@@ -175,8 +185,120 @@
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: #ef4444;
+            color: var(--primary-red);
             margin-bottom: 1rem;
+        }
+
+        /* Primary color overrides */
+        .text-primary {
+            color: var(--primary-red) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-red) !important;
+        }
+
+        .border-primary {
+            border-color: var(--primary-red) !important;
+        }
+
+        .bg-primary-light {
+            background-color: var(--primary-red-light) !important;
+        }
+
+        /* Button styles */
+        .btn-primary {
+            background-color: var(--primary-red);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-red-dark);
+        }
+
+        /* Focus ring override */
+        .focus-primary:focus {
+            --tw-ring-color: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+
+        /* Peer checked states */
+        .peer:checked~div {
+            border-color: var(--primary-red);
+            background-color: var(--primary-red-light);
+        }
+
+        /* Tailwind red color overrides - #c10007 */
+        .text-red-500,
+        .text-red-600 {
+            color: #c10007 !important;
+        }
+
+        .bg-red-500 {
+            background-color: #c10007 !important;
+        }
+
+        .bg-red-500:hover,
+        .hover\:bg-red-600:hover {
+            background-color: #9a0006 !important;
+        }
+
+        .border-red-500 {
+            border-color: #c10007 !important;
+        }
+
+        .bg-red-50,
+        .hover\:bg-red-50:hover {
+            background-color: #fff5f5 !important;
+        }
+
+        .bg-red-100 {
+            background-color: #ffeaea !important;
+        }
+
+        .focus\:ring-red-500:focus {
+            --tw-ring-color: #c10007 !important;
+        }
+
+        .focus\:border-red-500:focus {
+            border-color: #c10007 !important;
+        }
+
+        .text-red-600 {
+            color: #c10007 !important;
+        }
+
+        /* Gradient from red overrides */
+        .from-red-500,
+        .from-red-400 {
+            --tw-gradient-from: #c10007 !important;
+        }
+
+        .to-red-600,
+        .to-pink-400 {
+            --tw-gradient-to: #e63946 !important;
+        }
+
+        /* Checkbox and radio styling */
+        input[type="checkbox"].text-red-600:checked,
+        input[type="radio"].text-red-600:checked {
+            background-color: #c10007 !important;
+            border-color: #c10007 !important;
+        }
+
+        /* Progress bar */
+        .bg-red-500.h-2 {
+            background-color: #c10007 !important;
+        }
+
+        /* Red border left accents */
+        .border-l-4.border-red-500 {
+            border-left-color: #c10007 !important;
+        }
+
+        .border-l-4.border-blue-500 {
+            border-left-color: #3b82f6 !important;
         }
     </style>
 @endpush
@@ -186,20 +308,22 @@
     <!-- Hero Section -->
     <section class="relative pt-10 pb-16 hero-gradient">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60"
-            xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ef4444"
-            fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2" /%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-50">
+            xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23c10007"
+            fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2" /%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]
+            opacity-50">
         </div>
 
         <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
             <div class="floating-animation mb-6">
-                <svg class="w-16 h-16 text-red-500 mx-auto heart-pulse" fill="currentColor" viewBox="0 0 24 24">
+                <svg class="w-16 h-16 mx-auto heart-pulse" style="color: #c10007" fill="currentColor" viewBox="0 0 24 24">
                     <path
                         d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                 </svg>
             </div>
 
             <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-800">Become a Life Saver</h1>
-            <div class="w-24 h-1 bg-gradient-to-r from-red-400 to-pink-400 mx-auto mb-6 rounded-full"></div>
+            <div class="w-24 h-1 mx-auto mb-6 rounded-full"
+                style="background: linear-gradient(135deg, #c10007 0%, #e63946 100%)"></div>
             <p class="text-xl text-gray-700 leading-relaxed max-w-2xl mx-auto">
                 Your blood donation can save up to three lives. Join
                 {{ number_format($stats['active_donors'] > 0 ? $stats['active_donors'] : 15000) }}+ heroes who are making a
@@ -496,17 +620,56 @@
                         <!-- Section: Your Blood Group -->
                         @auth
                             <div class="form-section">
-                                <div class="form-section-title">Your Blood Group</div>
-                                <div class="flex items-center gap-4 bg-white border border-gray-200 rounded-xl p-4">
-                                    <div
-                                        class="w-14 h-14 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center shadow">
-                                        <span
-                                            class="text-2xl font-bold text-white">{{ auth()->user()->blood_group ?? '?' }}</span>
-                                    </div>
-                                    <div>
-                                        <p class="text-sm text-gray-500">Blood Group</p>
-                                        <p class="text-xl font-bold text-gray-800">
+                                <div class="form-section-title">Your Profile Info</div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    {{-- Blood Group --}}
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 text-center">
+                                        <div
+                                            class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-red-500 to-red-600 rounded-lg flex items-center justify-center shadow">
+                                            <span
+                                                class="text-lg font-bold text-white">{{ auth()->user()->blood_group ?? '?' }}</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Blood Group</p>
+                                        <p class="text-sm font-bold text-gray-800">
                                             {{ auth()->user()->blood_group ?? 'Not Set' }}</p>
+                                    </div>
+                                    {{-- Gender --}}
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 text-center">
+                                        <div
+                                            class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center shadow">
+                                            <span
+                                                class="text-lg text-white">{{ auth()->user()->gender === 'male' ? '♂' : (auth()->user()->gender === 'female' ? '♀' : '⚧') }}</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Gender</p>
+                                        <p class="text-sm font-bold text-gray-800 capitalize">
+                                            {{ auth()->user()->gender ?? 'Not Set' }}</p>
+                                    </div>
+                                    {{-- Date of Birth --}}
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 text-center">
+                                        <div
+                                            class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center shadow">
+                                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Date of Birth</p>
+                                        <p class="text-sm font-bold text-gray-800">
+                                            {{ auth()->user()->date_of_birth ? \Carbon\Carbon::parse(auth()->user()->date_of_birth)->format('d M Y') : 'Not Set' }}
+                                        </p>
+                                    </div>
+                                    {{-- Age --}}
+                                    <div class="bg-white border border-gray-200 rounded-xl p-3 text-center">
+                                        <div
+                                            class="w-10 h-10 mx-auto mb-2 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center shadow">
+                                            <span
+                                                class="text-sm font-bold text-white">{{ auth()->user()->date_of_birth ? \Carbon\Carbon::parse(auth()->user()->date_of_birth)->age : '?' }}</span>
+                                        </div>
+                                        <p class="text-xs text-gray-500">Age</p>
+                                        <p class="text-sm font-bold text-gray-800">
+                                            {{ auth()->user()->date_of_birth ? \Carbon\Carbon::parse(auth()->user()->date_of_birth)->age . ' years' : 'N/A' }}
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -525,7 +688,7 @@
                                         @foreach (['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'] as $bg)
                                             <label class="blood-type-option cursor-pointer">
                                                 <input type="radio" name="blood_group" value="{{ $bg }}"
-                                                    required class="hidden peer">
+                                                    class="hidden peer">
                                                 <div
                                                     class="flex flex-col items-center justify-center p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 hover:bg-red-50 peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-2 peer-checked:ring-red-200 transition-all">
                                                     <span class="text-lg font-bold text-red-600">{{ $bg }}</span>
@@ -537,14 +700,42 @@
                             @endif
                         @endauth
 
-                        <!-- Hidden inputs for blood_group (only when user has blood_group set) -->
+                        <!-- Hidden input for blood_group when user already has it set -->
                         @auth
                             @if (auth()->user()->blood_group)
                                 <input type="hidden" name="blood_group" id="selectedBloodType"
                                     value="{{ auth()->user()->blood_group }}">
                             @endif
-                        @else
-                            <input type="hidden" name="blood_group" id="selectedBloodType" required>
+                        @endauth
+
+                        <!-- Gender Selection (only if not set in profile) -->
+                        @auth
+                            @if (!auth()->user()->gender)
+                                <div class="form-section mt-6">
+                                    <div class="form-section-title flex items-center gap-2">
+                                        <span class="text-yellow-600">⚠</span> Select Your Gender
+                                    </div>
+                                    <p
+                                        class="text-sm text-yellow-700 mb-4 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                                        Your gender is not set in your profile. Please select it below.
+                                    </p>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        @foreach (['male' => '♂ Male', 'female' => '♀ Female', 'other' => '⚧ Other'] as $value => $label)
+                                            <label class="cursor-pointer">
+                                                <input type="radio" name="gender" value="{{ $value }}"
+                                                    class="hidden peer">
+                                                <div
+                                                    class="flex items-center justify-center p-3 border-2 border-gray-200 rounded-xl hover:border-red-300 hover:bg-red-50 peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:ring-2 peer-checked:ring-red-200 transition-all">
+                                                    <span
+                                                        class="text-sm font-semibold text-gray-700">{{ $label }}</span>
+                                                </div>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @else
+                                <input type="hidden" name="gender" value="{{ auth()->user()->gender }}">
+                            @endif
                         @endauth
 
                         <!-- Section: Physical Measurements & BMI -->
@@ -931,8 +1122,9 @@
 
                 // Special validation for blood type in step 2
                 if (currentStep === 2) {
-                    const bloodType = document.getElementById('selectedBloodType').value;
-                    if (!bloodType) {
+                    const hiddenBlood = document.getElementById('selectedBloodType');
+                    const radioBlood = document.querySelector('input[name="blood_group"]:checked');
+                    if (!hiddenBlood && !radioBlood) {
                         alert('Please select your blood type');
                         return false;
                     }
@@ -954,7 +1146,18 @@
                 document.getElementById('selectedBloodType').value = bloodType;
             }
 
-            // Allow normal form submission; optional client-side validation only advances steps
+            // Prevent form submission without blood group
+            document.getElementById('donationForm').addEventListener('submit', function(e) {
+                const hiddenBlood = document.getElementById('selectedBloodType');
+                const radioBlood = document.querySelector('input[name="blood_group"]:checked');
+                if (!hiddenBlood && !radioBlood) {
+                    e.preventDefault();
+                    alert('Please select your blood type before submitting.');
+                    currentStep = 2;
+                    showStep(2);
+                    return false;
+                }
+            });
 
             // Initialize
             showStep(1);
